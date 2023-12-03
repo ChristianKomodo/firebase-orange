@@ -1,7 +1,8 @@
 # FirebaseOrange
-## Anglar 16, Firebase Cloud Firestore, AngularFire v16
+### Anglar 16, Firebase Cloud Firestore, AngularFire v16
 
-Hit me up with any comments or ideas!
+## Setup
+This application uses [Firebase](https://firebase.google.com/) and to get it running, you will need to create an account in Firebase, create an "app" there, enable Cloud Firestore, then in the console it will give you a Firebase configuration object.  Replace what is in `src/firebase.config.ts` with your own custom config and the rest should work.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.4.
 
