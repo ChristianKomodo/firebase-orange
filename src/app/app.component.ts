@@ -4,25 +4,16 @@ import { RouterOutlet } from '@angular/router';
 import { DocumentData, Firestore, QuerySnapshot, addDoc, collection, collectionData, doc, getDoc, getDocs } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
-interface Item {
-  text: string
-};
+import { NavComponent } from './nav/nav.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet],
-  template: `
-  <ul>
-    <li *ngFor="let item of item$ | async">
-      {{ item.text }}
-    </li>
-  </ul>
-  `
+  imports: [CommonModule, RouterOutlet, NavComponent],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  // item$: Observable<Item[]>;
-  // item$ = collectionData<Item[]>(itemCollection);
   item$: Observable<any>;
 
   constructor(private firestore: Firestore) {
@@ -33,10 +24,10 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     const testCollection = collection(this.firestore, 'test');
 
-    // Add a document with an auto-generated id
-    addDoc(testCollection, { 'text': 'first one' }).then((docRef) => {
-      console.log('Document written with ID: ', docRef.id);
-    });
+    // // Add an example document with an auto-generated id
+    // addDoc(testCollection, { 'text': 'first one' }).then((docRef) => {
+    //   console.log('Document written with ID: ', docRef.id);
+    // });
 
     const oneDoc = getDoc(doc(testCollection, 'Y1O7RCJcpKwPJ0b28w2o')).then((doc) => {
       if (doc.exists()) {

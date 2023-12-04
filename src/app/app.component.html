@@ -1,7 +1,14 @@
-<h1>Test</h1>
+<app-nav></app-nav>
 
-<ul>
-  <li class="text" *ngFor="let item of docs$ | async">
-    {{ item }}
-  </li>
-</ul>
+<div class="container">
+  <h1>Firebase Connectivity</h1>
+
+  <h2>Database Items</h2>
+  <ul>
+    <li *ngFor="let item of item$ | async">
+      {{ item.text }}
+      <br />
+      JSON data: {{ item | json }}
+    </li>
+  </ul>
+</div>
