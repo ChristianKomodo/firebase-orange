@@ -1,4 +1,7 @@
-<ng-container *ngIf="!currentAuth?.currentUser">
+
+<p>user$ is {{ thisUser$ | json }}</p>
+
+<!-- <ng-container *ngIf="!currentAuth?.currentUser">
   <button (click)="whichForm = 'login'">Log In</button>
   <button (click)="whichForm = 'signup'">Sign Up</button>
 </ng-container>
@@ -14,7 +17,7 @@
 <ng-container *ngIf="showUserDetails">
   <h1>Current User!</h1>
   <pre>{{ currentAuth | json }}</pre>
-</ng-container>
+</ng-container> -->
 
 <div class="container">
   <div *ngIf="whichForm == 'login'" class="form-container">

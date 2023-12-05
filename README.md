@@ -13,3 +13,16 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+
+## Helpful Links and Resources
+
+### AngularFire Docs
+
+Auth - AngularFire Docs - 
+https://github.com/angular/angularfire/blob/master/docs/compat/auth/getting-started.md
+
+Firestore - AngularFire Docs -
+https://github.com/angular/angularfire/blob/master/docs/install-and-setup.md
+
+Auth - Official Firebase Docs - 
+https://firebase.google.com/docs/auth/web/password-auth

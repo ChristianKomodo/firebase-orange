@@ -1,7 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, Optional } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+
 import { Auth, authState, signInAnonymously, signOut, User, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword } from '@angular/fire/auth';
+
+
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-auth',
@@ -12,18 +17,20 @@ import { Auth, authState, signInAnonymously, signOut, User, createUserWithEmailA
 })
 export class AuthComponent implements OnInit {
   whichForm = 'neither';
-  authForm!: FormGroup;
-  signupForm!: FormGroup;
-  currentAuth: Auth | undefined;
+  authForm: FormGroup;
+  signupForm: FormGroup;
   showUserDetails = false;
+
+  currentAuth: Auth | undefined;
+
+  // thisUser$: Observable<any> = this.userService.user$;
 
   constructor(
     private fb: FormBuilder,
-    @Optional() private auth: Auth
-  ) { }
-
-  ngOnInit(): void {
-    // Set up forms
+    private userService: UserService,
+    @Optional() private auth: Auth,
+  ) {
+    // Set up Reactive SignUp/SignIn forms
     this.authForm = this.fb.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]]
@@ -32,7 +39,11 @@ export class AuthComponent implements OnInit {
       username: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
+  }
 
+  ngOnInit(): void {
+    // Subscribe to the user from UserService
+    // this.thisUser$.subscribe(thisUser => console.log('thisUser is', thisUser));
     this.currentAuth = getAuth();
     console.log('currentAuth is', this.currentAuth);
     onAuthStateChanged(this.auth, (user) => {
@@ -51,47 +62,25 @@ export class AuthComponent implements OnInit {
     this.showUserDetails = !this.showUserDetails;
   }
 
-  logOut() {
-    signOut(this.auth).then(() => {
-      console.log('User signed out');
-    }).catch((error) => {
-      console.error(error);
-    });
-  }
-
   onSubmitLogin() {
     if (this.authForm.valid) {
-      console.log('Login Form values submitted:', this.authForm.value);
-
-      signInWithEmailAndPassword(
-        this.auth,
+      this.userService.signIn(
         this.authForm.value.username,
         this.authForm.value.password
-      ).then((response: any) => {
-        console.log('log in response', response);
-        this.whichForm = 'neither';
-      }).catch((error: any) => {
-        console.error('log in error response', error);
-      });
+      );
     }
   }
 
   onSubmitSignup() {
     if (this.signupForm.valid) {
-      console.log('Signup Form values submitted:', this.signupForm.value);
-
-      createUserWithEmailAndPassword(
-        this.auth,
+      this.userService.signIn(
         this.signupForm.value.username,
         this.signupForm.value.password
-      )
-        .then((response: any) => {
-          console.log(response);
-          this.whichForm = 'neither';
-        })
-        .catch((error: any) => {
-          console.error(error);
-        });
+      );
     }
+  }
+
+  logOut() {
+    this.userService.signOut();
   }
 }
