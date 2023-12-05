@@ -1,22 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-
-interface User {
-  email: string;
-  uuid: string;
-}
+import { Auth } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private _user: User | undefined;
+  constructor(private afAuth: Auth) { }
 
-  get user(): User | undefined {
-    return this._user;
-  }
-
-  setUser(user: User) {
-    this._user = user;
+  get isAuthenticated(): boolean {
+    return this.afAuth.currentUser !== null;
   }
 }

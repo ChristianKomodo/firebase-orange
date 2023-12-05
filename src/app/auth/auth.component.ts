@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, Optional } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Firestore } from '@angular/fire/firestore';
 import { Auth, authState, signInAnonymously, signOut, User, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword } from '@angular/fire/auth';
 
 @Component({
@@ -20,7 +19,6 @@ export class AuthComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private firestore: Firestore,
     @Optional() private auth: Auth
   ) { }
 

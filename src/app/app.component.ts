@@ -5,11 +5,12 @@ import { DocumentData, Firestore, QuerySnapshot, addDoc, collection, collectionD
 import { Observable } from 'rxjs';
 
 import { NavComponent } from './nav/nav.component';
+import { UserComponent } from './user/user.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, NavComponent],
+  imports: [CommonModule, RouterOutlet, NavComponent, UserComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
