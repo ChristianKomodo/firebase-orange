@@ -22,11 +22,11 @@ export class UserService {
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Signed up
-        const user = userCredential.user;
-        console.log("user service signUp() userCredential.user is", user);
+        // Successfully signed up
+        console.log("user service signUp() userCredential is", userCredential);
       })
       .catch((error) => {
+        // Failed to sign up
         const errorCode = error.code;
         const errorMessage = error.message;
         console.error('user service signUp() error:', error.message);
@@ -36,11 +36,11 @@ export class UserService {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        console.log("user service signIn() userCredential.user is", user);
+        // Successfully signed in
+        console.log("user service signIn() userCredential is", userCredential);
       })
       .catch((error) => {
+        // Failed to sign in
         const errorCode = error.code;
         const errorMessage = error.message;
         console.error('user service signIn() error:', error.message);
