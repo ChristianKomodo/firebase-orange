@@ -1,4 +1,13 @@
-<div class="user-tools">
+<p>
+    Auth!
+    <code>{{ (user | async)?.uid }}</code>
+    <!-- <button (click)="login()" *ngIf="showLoginButton">Log in with Google</button>
+    <button (click)="loginAnonymously()" *ngIf="showLoginButton">Log in anonymously</button>
+    <button (click)="logout()" *ngIf="showLogoutButton">Log out</button> -->
+</p>
+
+
+<!-- <div class="user-tools">
     <ng-container *ngIf="!user">
         <button class="nav-button" (click)="clicked()">Sign Up</button>
         <button class="nav-button" (click)="clicked()">Log In</button>
@@ -7,7 +16,7 @@
         <button class="nav-label" (click)="clicked()">User: {{ user.email }}</button>
         <button class="nav-button" (click)="clicked()">Log Out</button>
     </ng-container>
-</div>
+</div> -->
 
 <p>user:</p>
 <pre>{{ user | json }}</pre>
