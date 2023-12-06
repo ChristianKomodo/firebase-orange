@@ -12,9 +12,9 @@ export class UserService {
   userSubscription: Subscription;
 
   constructor() {
-    this.userSubscription = this.user$.subscribe((aUser: User | null) => {
+    this.userSubscription = this.user$.subscribe((thisUser: User | null) => {
       //handle user state changes here. Note, that user will be null if there is no currently logged in user.
-      console.log('aUser from UserService userSubscription is', aUser);
+      console.log('userSubscription changed in UserService:', thisUser);
     });
   }
 

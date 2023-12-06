@@ -13,7 +13,7 @@ import { UserService } from '../user.service';
   styleUrls: ['./user-form.component.scss']
 })
 export class UserFormComponent {
-  whichForm = 'neither';
+  whichForm = 'login';
   authForm: FormGroup;
   signupForm: FormGroup;
 
