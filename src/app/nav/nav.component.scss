@@ -4,13 +4,15 @@ nav {
   color: #666;
   
   .nav-container {
+    padding: 0;
     display: flex;
     justify-content: space-between;
-    padding: 0;
+    align-items: center;
   }
 
   .title {
     color: #999;
-    padding: 1rem;
+    font-size: 26px;
+    margin-left: 1rem;
   }
 }

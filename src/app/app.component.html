@@ -1,9 +1,10 @@
 <app-nav></app-nav>
 
 <div class="container">
-  <h1>Firebase Connectivity</h1>
+  <router-outlet></router-outlet>
+  <!-- <h1>Firebase Connectivity</h1> -->
 
-  <h2>Database Items</h2>
+  <!-- <h2>Database Items</h2> -->
   <ul>
     <li *ngFor="let item of item$ | async">
       {{ item.text }}

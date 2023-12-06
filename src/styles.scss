@@ -57,8 +57,6 @@ a {
 }
 
 .container {
-  display: block;
-  // border: 1px solid #666;  // to see the boundaries when formatting
   max-width: 1024px;
   padding: 1rem;
   margin: 0 auto;
@@ -67,9 +65,9 @@ a {
 button {
   cursor: pointer;
   padding: 0.5rem 1rem 0.5rem;
-  background-color: #424242;
+  background-color: #4f4f4f;
   color: #999;
-  border: 1px solid #4f4f4f;
+  border: 1px solid #555;
   transition: all 0.2s;
   display: inline-block;
 
@@ -79,6 +77,8 @@ button {
   &.nav-label {
     padding: 1rem 2rem;
     cursor: unset;
+    background: none;
+    border: none;
   }
 }
 button:hover:not([disabled]):not(.nav-label) {

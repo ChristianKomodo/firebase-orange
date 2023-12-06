@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
 export class UserComponent implements OnDestroy {
   private auth: Auth = inject(Auth);
   userEmail: string | undefined | null = null;
+  user: User | null = null;
   
   // The `user` observable streams events triggered by sign-in, sign-out, and token refresh events.
   user$ = user(this.auth);
@@ -21,12 +22,12 @@ export class UserComponent implements OnDestroy {
   constructor() {
     this.userSubscription = this.user$.subscribe((aUser: User | null) => {
       console.log('------- UserComponent aUser', aUser);
-      this.userEmail = aUser?.email;
+      this.user = aUser;
     })
   }
 
   clicked() {
-    console.log('clicked!  User is', this.userEmail);
+    console.log('clicked!');
   }
 
   ngOnDestroy() {
