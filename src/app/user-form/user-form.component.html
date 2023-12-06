@@ -1,1 +1,27 @@
-<p>user form works</p>
+<!-- <h1>Authentication</h1> -->
+
+<div class="container">
+    <div *ngIf="whichForm == 'login'" class="form-container">
+      <h2>Login Form</h2>
+      <form [formGroup]="authForm" (ngSubmit)="onSubmitLogin()">
+        <label for="username">Username:</label>
+        <input type="text" id="username" formControlName="username" />
+        <div>Username is required</div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" formControlName="password" />
+        <button type="submit" [disabled]="authForm.invalid">Submit</button>
+      </form>
+    </div>
+  
+    <div *ngIf="whichForm == 'signup'" class="form-container">
+      <h2>Sign Up Form</h2>
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmitSignup()">
+        <label for="username">Username:</label>
+        <input type="text" id="username" formControlName="username" />
+        <div>Username is required</div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" formControlName="password" />
+        <button type="submit" [disabled]="signupForm.invalid">Submit</button>
+      </form>
+    </div>
+  </div>
