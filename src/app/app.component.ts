@@ -10,7 +10,7 @@ import { UserComponent } from './user/user.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, NavComponent, UserComponent],
+  imports: [CommonModule, RouterOutlet, NavComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })

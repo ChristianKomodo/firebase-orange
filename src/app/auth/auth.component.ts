@@ -12,7 +12,7 @@ import { Auth, authState, signInAnonymously, signOut, User, createUserWithEmailA
 })
 export class AuthComponent implements OnInit {
   whichForm = 'neither';
-  authForm!: FormGroup;
+  authForm: FormGroup;
   signupForm!: FormGroup;
   currentAuth: Auth | undefined;
   showUserDetails = false;
@@ -20,10 +20,7 @@ export class AuthComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     @Optional() private auth: Auth
-  ) { }
-
-  ngOnInit(): void {
-    // Set up forms
+  ) {
     this.authForm = this.fb.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]]
@@ -32,9 +29,14 @@ export class AuthComponent implements OnInit {
       username: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
+  }
+
+  ngOnInit(): void {
+    // Set up forms
 
     this.currentAuth = getAuth();
     console.log('currentAuth is', this.currentAuth);
+    
     onAuthStateChanged(this.auth, (user) => {
       if (user) {
         // User is signed in, see docs for a list of available properties

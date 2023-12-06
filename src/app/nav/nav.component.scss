@@ -1,19 +1,16 @@
 nav {
   background-color: #444;
-  padding: 0.5rem 1rem 0.75rem;
   font-size: 14px;
-}
+  color: #666;
+  
+  .nav-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+  }
 
-nav .nav-container {
-  margin: auto;
-  color: #999;
-}
-
-nav .nav-container span {
-  padding: 0 10px;
-  text-decoration: none;
-}
-
-nav .nav-container a:last-of-type {
-  float: right;
+  .title {
+    color: #999;
+    padding: 1rem;
+  }
 }

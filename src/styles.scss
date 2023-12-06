@@ -56,47 +56,32 @@ a {
   color: #6fb8ff;
 }
 
-.cards-container {
-  border: 1px solid #555;
-  background-color: #2c2c2c;
-  margin: auto;
-}
-
-.card-row {
-  display: flex;
-}
-.card-row.heading-row {
-  border-bottom: 1px solid #555;
-}
-.card-column {
-  border-bottom: 1px solid #3c3c3c;
-  padding: 18px;
-}
-.card-column.card-group-name {
-  flex-grow: 1;
-}
-.card-column.tools a {
-  text-decoration: none;
-  font-size: 12px;
-  padding: 6px 8px 4px;
-  background-color: #393939;
-  outline: 1px solid #666;
-}
-.card-column.tools a:hover {
-  filter: brightness(115%);
+.container {
+  display: block;
+  // border: 1px solid #666;  // to see the boundaries when formatting
+  max-width: 1024px;
+  padding: 1rem;
+  margin: 0 auto;
 }
 
 button {
   cursor: pointer;
-  padding: 0.75rem 1rem 0.5rem;
-  background-color: #555;
-  color: #eee;
-  border: 1px solid #999;
+  padding: 0.5rem 1rem 0.5rem;
+  background-color: #424242;
+  color: #999;
+  border: 1px solid #4f4f4f;
   transition: all 0.2s;
   display: inline-block;
-  margin: 0 1rem 1rem 0;
+
+  &.nav-button {
+    padding: 1rem 2rem;
+  }
+  &.nav-label {
+    padding: 1rem 2rem;
+    cursor: unset;
+  }
 }
-button:hover:not([disabled]) {
+button:hover:not([disabled]):not(.nav-label) {
   background-color: #777;
   color: #fff;
   border: 1px solid #aaa;
@@ -111,34 +96,7 @@ button.delete-set-button {
   border: 1px solid #555;
 }
 
-.heading {
-  color: #6fb8ff;
-  margin-top: 1rem;
-}
 
-.game-message {
-  font-size: 28px;
-  margin: -2.5rem 0 1rem;
-  color: #fff;
-}
-
-.container {
-  display: block;
-  border: 1px solid #666;
-  max-width: 1024px;
-  padding: 0 1rem;
-  margin: 1rem auto;
-}
-
-.callout.secondary {
-  background-color: #444 !important;
-  color: #777 !important;
-}
-
-code {
-  display: block;
-  margin-bottom: 1rem;
-}
 
 /* Layout Helper Classes */
 
