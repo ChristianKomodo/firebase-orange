@@ -14,6 +14,8 @@ export class UserComponent {
 
   public readonly user: Observable<User | null> = EMPTY;
 
+  userEmail: string | null = null;
+
   showLoginButton = false;
   showLogoutButton = false;
 
@@ -21,12 +23,27 @@ export class UserComponent {
     @Optional() private auth: Auth
   ) {
     if (auth) {
-      this.user = authState(this.auth);
+      this.user = authState(auth);
+      this.user.subscribe(user => {
+        if (user) {
+          this.showLogoutButton = true;
+          this.userEmail = user.email;
+        } else {
+          this.showLoginButton = true;
+          this.userEmail = 'nope';
+        }
+      }
+      );
     }
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
 
+  }
+
+  clicked() {
+    console.log('clicked!');
+  }
 
 }
 
