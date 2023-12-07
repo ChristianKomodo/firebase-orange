@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Auth, User, user, getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from '@angular/fire/auth';
+import { Auth, User, user, getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from '@angular/fire/auth';
 import { BehaviorSubject, Observable, Subscription, of } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
@@ -15,6 +15,21 @@ export class UserService {
     this.userSubscription = this.user$.subscribe((thisUser: User | null) => {
       // Fires off when user authentication state changes
       console.log('userSubscription changed in UserService:', thisUser);
+    });
+  }
+
+  ngOnInit(): void {  
+    // example use of onAuthStateChanged()
+    onAuthStateChanged(this.auth, (user) => {
+      console.log('onAuthStateChanged() executed');
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/auth.user
+        const uid = user.uid;
+        console.log('uid is', uid);
+      } else {
+        console.log('user is not signed in');
+      }
     });
   }
 
