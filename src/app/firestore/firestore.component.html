@@ -1,4 +1,4 @@
-  <!-- <h2>Cloud Firestore Data Example</h2> -->
+  <h2>Cloud Firestore Data Example</h2>
   <ul>
     <li *ngFor="let item of item$ | async">
       {{ item.text }}
@@ -6,3 +6,5 @@
       JSON data: {{ item | json }}
     </li>
   </ul>
+
+  <app-data-form></app-data-form>

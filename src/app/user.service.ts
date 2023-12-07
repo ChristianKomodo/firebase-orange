@@ -15,7 +15,7 @@ export class UserService {
   constructor(private navigationService: NavigationService) {
     this.userSubscription = this.user$.subscribe((thisUser: User | null) => {
       // Navigate Home whenever user authentication state successfully changes
-      this.navigationService.navigateTo('home');
+      // this.navigationService.navigateTo('home');
     });
   }
 
