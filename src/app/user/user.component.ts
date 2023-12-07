@@ -1,7 +1,10 @@
-import { Component, Optional } from '@angular/core';
-import { Auth, authState, signOut, User } from '@angular/fire/auth';
+import { Component, OnDestroy, inject } from '@angular/core';
+import { Auth, User, user } from '@angular/fire/auth';
 import { EMPTY, Observable, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-user',
@@ -10,44 +13,31 @@ import { CommonModule } from '@angular/common';
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })
-export class UserComponent {
+export class UserComponent implements OnDestroy {
+  private auth: Auth = inject(Auth);
+  user$ = user(this.auth);
+  userSubscription: Subscription;
 
-  public readonly user: Observable<User | null> = EMPTY;
-
-  userEmail: string | null = null;
-
-  showLoginButton = false;
-  showLogoutButton = false;
-
-  constructor(
-    @Optional() private auth: Auth
-  ) {
-    if (auth) {
-      this.user = authState(auth);
-      this.user.subscribe(user => {
-        if (user) {
-          this.showLogoutButton = true;
-          this.userEmail = user.email;
-        } else {
-          this.showLoginButton = true;
-          this.userEmail = 'nope';
-        }
-      }
-      );
+  constructor(private router: Router, private userService: UserService) {
+    this.userSubscription = this.user$.subscribe((aUser: User | null) => {
+      //handle user state changes here. Note, that user will be null if there is no currently logged in user.
+      console.log('aUser is', aUser);
+    })
+  }
+  
+  logOut() {
+    this.userService.signOut();
+  }
+  
+  navigateTo(route: string) {
+    this.router.navigate([`/${route}`]);
+  }
+  
+    ngOnDestroy() {
+      this.userSubscription.unsubscribe();
     }
-  }
-
-  ngOnInit(): void {
-
-  }
-
-  clicked() {
-    console.log('clicked!');
-  }
 
 }
-
-
 
 
 

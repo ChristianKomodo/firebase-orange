@@ -1,22 +1,11 @@
-<!-- <code>{{ (user | async)?.email }}</code> -->
-
-<!-- <button (click)="login()" *ngIf="showLoginButton">Log in with Google</button>
-    <button (click)="loginAnonymously()" *ngIf="showLoginButton">Log in anonymously</button>
-    <button (click)="logout()" *ngIf="showLogoutButton">Log out</button> -->
-
 <div class="user-tools">
-  <ng-container *ngIf="!user">
-    <button class="nav-button" (click)="clicked()">Sign Up</button>
-    <button class="nav-button" (click)="clicked()">Log In</button>
-  </ng-container>
-  <ng-container *ngIf="user">
-    <button class="nav-label" (click)="clicked()">
-      <!-- User: {{ (user | async)?.email }} -->
-      User: {{ userEmail }}
+  <ng-container *ngIf="user$ | async else nouser">
+    <button class="nav-label">
+      User: {{ (user$ | async)?.email }}
     </button>
-    <button class="nav-button" (click)="clicked()">Log Out</button>
+    <button class="nav-button" (click)="logOut()">Log Out</button>
   </ng-container>
+  <ng-template #nouser>
+    <button class="nav-button" (click)="navigateTo('user-form')">Log In / Sign Up</button>
+  </ng-template>
 </div>
-
-<!-- <p>user:</p>
-<pre>{{ user | json }}</pre> -->
