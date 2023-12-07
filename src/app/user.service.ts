@@ -1,7 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { Auth, User, user, getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from '@angular/fire/auth';
-import { BehaviorSubject, Observable, Subscription, of } from 'rxjs';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Subscription, of } from 'rxjs';
+
+import { NavigationService } from './navigation.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,20 +12,20 @@ export class UserService {
   user$ = user(this.auth);
   userSubscription: Subscription;
 
-  constructor() {
+  constructor(private navigationService: NavigationService) {
     this.userSubscription = this.user$.subscribe((thisUser: User | null) => {
-      // Fires off when user authentication state changes
-      console.log('userSubscription changed in UserService:', thisUser);
+      // Navigate Home whenever user authentication state successfully changes
+      this.navigationService.navigateTo('home');
     });
   }
 
   ngOnInit(): void {  
-    // example use of onAuthStateChanged()
+    // example use of onAuthStateChanged() if needed
     onAuthStateChanged(this.auth, (user) => {
       console.log('onAuthStateChanged() executed');
       if (user) {
         // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/auth.user
+        // User interface: https://firebase.google.com/docs/reference/js/auth.user
         const uid = user.uid;
         console.log('uid is', uid);
       } else {

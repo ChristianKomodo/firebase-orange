@@ -1,7 +1,7 @@
 <div class="user-tools">
   <ng-container *ngIf="user$ | async else nouser">
     <button class="nav-label">
-      User: {{ (user$ | async)?.email }}
+      Welcome: {{ (user$ | async)?.email }}
     </button>
     <button class="nav-button" (click)="logOut()">Log Out</button>
   </ng-container>

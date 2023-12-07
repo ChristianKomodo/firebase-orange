@@ -1,8 +1,7 @@
 import { Component, OnDestroy, inject } from '@angular/core';
-import { Auth, User, user } from '@angular/fire/auth';
-import { EMPTY, Observable, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Auth, User, user } from '@angular/fire/auth';
+import { Subscription } from 'rxjs';
 
 import { UserService } from '../user.service';
 import { NavigationService } from '../navigation.service';
@@ -20,7 +19,6 @@ export class UserComponent implements OnDestroy {
   userSubscription: Subscription;
 
   constructor(
-    private router: Router,
     private userService: UserService,
     private navigationService: NavigationService
   ) {
