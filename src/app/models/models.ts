@@ -3,4 +3,5 @@ export interface UserData {
 	email: string;
 	displayName?: string;
 	photoURL?: string;
+	userData?: any;
 }
