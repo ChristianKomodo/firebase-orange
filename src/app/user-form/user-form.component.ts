@@ -42,9 +42,14 @@ export class UserFormComponent {
 
   onSubmitSignup() {
     if (this.signupForm.valid) {
-      // console.log('Signup Form values submitted:', this.signupForm.value);
-      this.userService.signUp(this.authForm.value.username,
-        this.authForm.value.password);
+      const username = this.signupForm.value.username;
+      const password = this.signupForm.value.password;
+      console.log(`Signing up with username ${username} and password ${password}`);
+      if (!username || !password) {
+        console.error('user service signUp() email or password is empty');
+        return;
+      }
+      this.userService.signUp(username, password);
     }
   }
 }
