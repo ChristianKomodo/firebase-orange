@@ -1,13 +1,15 @@
 <h2>This User's Data</h2>
 <p>Data for user {{ (user$ | async)?.email }}</p>
 
-<ul>
+<!-- <p *ngIf="userData$">{{ userData$ | async | json }}</p> -->
+
+<!-- <ul>
   <li *ngFor="let userData of userData$ | async">
     {{ userData.text }}
     <br />
     JSON data: {{ userData | json }}
   </li>
-</ul>
+</ul> -->
 
 <hr />
 
