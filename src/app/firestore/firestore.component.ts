@@ -1,10 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { DocumentData, Firestore, QuerySnapshot, addDoc, collection, collectionData, doc, getDoc, getDocs } from '@angular/fire/firestore';
+import { DocumentData, Firestore, QuerySnapshot, addDoc, collection, collectionData, doc, getDoc, getDocs, setDoc } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { DataFormComponent } from './data-form/data-form.component';
-import { Auth, user } from '@angular/fire/auth';
+import { Auth, User, user } from '@angular/fire/auth';
 
 @Component({
     selector: 'app-firestore',
@@ -42,6 +42,7 @@ export class FirestoreComponent implements OnInit {
                 getDoc(doc(this.firestore, 'users', uid))
                     .then((doc) => {
                         if (doc.exists()) {
+                            console.log("Found UserData Document:", doc.data());
                             this.userDataSubject.next(doc.data()); // Set doc.data() to userData$
                         } else {
                             console.log("No such document!");
@@ -50,17 +51,22 @@ export class FirestoreComponent implements OnInit {
                         console.log("Error getting document:", error);
                     });
                 // // use this to add example user data to this user
-                //this.populateNewUserData(uid);
+                // this.updateUserData(uid);
             } else {
                 console.log('user is not signed in');
             }
         });
     }
 
-    populateNewUserData(uid: string) {
-        // addDoc to this user's userData
-        addDoc(collection(this.firestore, 'users', uid, 'userData'), {
-            movies: ['movie1', 'movie2', 'movie3']
+    updateUserData(uid: string) {
+        const userDoc = doc(this.firestore, 'users', uid);
+        const userData = {
+            moviez: ['Toy Story 1', 'Toy Story 2', 'Toy Story 3']
+        };
+        setDoc(userDoc, userData, { merge: true }).then(() => {
+            console.log('User data updated');
+        }).catch((error) => {
+            console.error('Error updating user data:', error);
         });
     }
 }

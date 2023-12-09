@@ -1,7 +1,7 @@
 <h2>This User's Data</h2>
 <p>Data for user {{ (user$ | async)?.email }}</p>
 
-<!-- <p *ngIf="userData$">{{ userData$ | async | json }}</p> -->
+<p *ngIf="userData$">{{ userData$ | async | json }}</p>
 
 <!-- <ul>
   <li *ngFor="let userData of userData$ | async">
