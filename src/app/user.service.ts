@@ -1,11 +1,10 @@
 import { Injectable, inject } from '@angular/core';
 import { Auth, User, user, getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from '@angular/fire/auth';
 import { Subscription } from 'rxjs';
-import { DocumentData, Firestore, QuerySnapshot, addDoc, collection, collectionData, doc, setDoc, getDoc, getDocs } from '@angular/fire/firestore';
+import { Firestore, collection, collectionData, doc, setDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 import { NavigationService } from './navigation.service';
-import { UserData } from './models/models';
 
 @Injectable({
   providedIn: 'root'

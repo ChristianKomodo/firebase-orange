@@ -1,10 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { DocumentData, Firestore, QuerySnapshot, addDoc, collection, collectionData, doc, getDoc, getDocs, setDoc } from '@angular/fire/firestore';
+import { Firestore, collection, collectionData, doc, getDoc, setDoc } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { DataFormComponent } from './data-form/data-form.component';
-import { Auth, User, user } from '@angular/fire/auth';
+import { Auth, user } from '@angular/fire/auth';
 
 @Component({
     selector: 'app-firestore',
