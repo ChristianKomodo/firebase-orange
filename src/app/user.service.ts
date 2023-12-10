@@ -12,7 +12,6 @@ import { NavigationService } from './navigation.service';
 export class UserService {
   private auth: Auth = inject(Auth);
   user$ = user(this.auth);
-  userSubscription: Subscription;
   // userData$: Observable<UserData>;  // ToDo: WHY DOES THIS NOT WORK?
   userData$: Observable<any>;
 
@@ -20,14 +19,6 @@ export class UserService {
     private navigationService: NavigationService,
     private Firestore: Firestore
   ) {
-    this.userSubscription = this.user$.subscribe((thisUser: User | null) => {
-      // Navigate Home whenever user authentication state successfully changes
-      // this.navigationService.navigateTo('home');
-    });
-
-    // const itemCollection = collection(this.firestore, 'test');
-    // this.item$ = collectionData(itemCollection);
-
     const userCollection = collection(this.Firestore, 'users');
     this.userData$ = collectionData(userCollection);
   }
@@ -63,8 +54,6 @@ export class UserService {
       })
       .catch((error) => {
         // Failed to sign up
-        const errorCode = error.code;
-        const errorMessage = error.message;
         console.error('user service signUp() error:', error);
         console.error('user service signUp() error message:', error.message);
       });
@@ -80,12 +69,10 @@ export class UserService {
       })
       .catch((error) => {
         // Failed to sign in
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.error('user service signIn() error:', error.message);
+        console.error('user service signIn() error:', error);
+        console.error('user service signIn() error message:', error.message);
       });
   }
-
 
   addUserData(user: User) {
     const userCollection = collection(this.Firestore, 'users');
@@ -110,9 +97,5 @@ export class UserService {
       console.log('User signOut() in UserService FAILED');
       console.error(error);
     });
-  }
-
-  ngOnDestroy() {
-    this.userSubscription.unsubscribe();
   }
 }
