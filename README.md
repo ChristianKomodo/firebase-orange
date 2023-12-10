@@ -11,8 +11,8 @@ This application uses [Firebase](https://firebase.google.com/) and to get it run
 Auth:
 https://github.com/angular/angularfire/blob/master/samples/modular/src/app/auth/auth.component.ts
 
-Working with Lists of Data:
-https://firebase.google.com/docs/database/web/lists-of-data
+Working with Lists of Data (Firestore):
+https://firebase.google.com/docs/firestore/quickstart
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.4.
 

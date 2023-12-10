@@ -96,13 +96,14 @@ button.delete-set-button {
   border: 1px solid #555;
 }
 
-
-
 /* Layout Helper Classes */
 
-/* "ml-0-5" is short for "Margin Left: 0.5rem" */
-.ml-0-5 {
-  margin-left: 0.5rem;
+/* "mb-0-5" is short for "margin-bottom: 0.5rem" */
+.mb-0-5 {
+  margin-bottom: 0.5rem;
+}
+.mb-1-5 {
+  margin-bottom: 1.5rem;
 }
 
 /* Poor man's Flex grid */

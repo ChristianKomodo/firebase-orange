@@ -1,0 +1,57 @@
+<section class="no-bkd">
+  <h2>Movie Recommendations</h2>
+  <p class="mb-1-5">
+    Latest Recommendations (latest
+    {{ recommendationCount < 3 ? recommendationCount : "3" }} of
+    {{ recommendationCount }})
+  </p>
+  <div *ngFor="let recommendation of (recommendation$ | async)?.slice(0, 3)">
+    <div class="speech-bubble">
+      <p>
+        About <strong>{{ recommendation.title }}</strong
+        >:
+      </p>
+      <p>"{{ recommendation.text }}"</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Add a Movie Recommendation!</h2>
+  <p class="mb-1-5">
+    If you are logged in you can type in a movie title and your comments about
+    it below:
+  </p>
+  <ng-container *ngIf="user$ | async; else nouser">
+    <div class="speech-bubble form">
+      <div class="field">
+        <label for="title">Movie Title</label>&nbsp; &nbsp;
+        <input
+          id="title"
+          type="text"
+          placeholder="Type a movie title"
+          #title
+        /><br />
+      </div>
+      <div class="field">
+        <label for="text">Recommendation</label>&nbsp; &nbsp;
+        <input
+          id="text"
+          type="text"
+          placeholder="Type your recommendation"
+          #text
+        />
+      </div>
+      <button (click)="addRecommendation()">Add Recommendation</button>
+    </div>
+  </ng-container>
+  <ng-template #nouser>
+    <p>&#9888; You must be logged in to use this feature</p>
+  </ng-template>
+</section>
+
+<section>
+  <h2>Recommendation Data as JSON</h2>
+  <p>recommendation$ | async | json</p>
+  <p>{{ recommendation$ | async | json }}</p>
+</section>
