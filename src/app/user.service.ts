@@ -93,6 +93,7 @@ export class UserService {
   signOut() {
     signOut(this.auth).then(() => {
       console.log('User signOut() in UserService');
+      this.navigationService.navigateTo('user-form');
     }).catch((error) => {
       console.log('User signOut() in UserService FAILED');
       console.error(error);
