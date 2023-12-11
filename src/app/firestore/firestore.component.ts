@@ -29,23 +29,6 @@ export class FirestoreComponent implements OnInit {
 
     constructor(private firestore: Firestore, private fb: FormBuilder) { }
 
-    lockdownCheck() {
-        // Checking to see if someone is spamming the site
-        // count the number of items in the "recommendation" collection
-        // if there are more than 10, then lockdown the site
-        // if there are less than 10, then add a new item
-        this.user$.subscribe((user) => {
-            console.log('subscribe user', user);
-            //   console.log('recommendations', recommendations);
-            //   this.recommendationCount = recommendations.length;
-            //   if (recommendations.length > 10) {
-            //     this.lockdown = true;
-            //   } else {
-            //     this.lockdown = false;
-            //   }
-        });
-    }
-
     ngOnInit(): void {
         this.setUpForms();
 
@@ -98,6 +81,8 @@ export class FirestoreComponent implements OnInit {
         console.log('formData', formData);
         const updatedMovieData = { movies: [...this.movieData, formData.movie] };
         console.log('updatedMovieData', updatedMovieData);
+        console.log('form deactivated - need to redo this page');
+        return;
         setDoc(userDoc, updatedMovieData, { merge: true }).then(() => {
             console.log('Movie data updated');
         }).catch((error) => {

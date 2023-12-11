@@ -17,6 +17,9 @@ https://github.com/angular/angularfire/blob/master/site/src/auth/route-guards.md
 Working with Lists of Data (Firestore):
 https://firebase.google.com/docs/firestore/quickstart
 
+collectionData explained:
+https://github.com/angular/angularfire/blob/master/docs/firestore.md
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.4.
 
 ## Development server
