@@ -11,24 +11,26 @@
       <label for="username">Username:</label>
       <input type="text" id="username" formControlName="username" />
       <br />
-      <div
+      <small
+        class="error"
         *ngIf="
           authForm.get('username')?.touched && authForm.get('username')?.invalid
         "
       >
         A user name is required
-      </div>
+      </small>
       <br />
       <label for="password">Password:</label>
       <input type="password" id="password" formControlName="password" />
       <br />
-      <div
+      <small
+        class="error"
         *ngIf="
           authForm.get('password')?.touched && authForm.get('password')?.invalid
         "
       >
         A password is required
-      </div>
+      </small>
       <br />
       <button type="submit" [disabled]="authForm.invalid">Log In</button>
     </form>
@@ -44,26 +46,28 @@
       <label for="username">Username:</label>
       <input type="text" id="username" formControlName="username" />
       <br />
-      <div
+      <small
+        class="error"
         *ngIf="
           signupForm.get('username')?.touched &&
           signupForm.get('username')?.invalid
         "
       >
         A user name is required
-      </div>
+      </small>
       <br />
       <label for="password">Password:</label>
       <input type="password" id="password" formControlName="password" />
       <br />
-      <div
+      <small
+        class="error"
         *ngIf="
           signupForm.get('password')?.touched &&
           signupForm.get('password')?.invalid
         "
       >
         A user name is required
-      </div>
+      </small>
       <br />
       <button type="submit" [disabled]="signupForm.invalid">Sign Up</button>
     </form>
