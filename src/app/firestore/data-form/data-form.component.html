@@ -1,9 +1,0 @@
-<p>Add Data Form</p>
-
-<form [formGroup]="dataForm" (ngSubmit)="submitDataForm()">
-    <label for="text">Text to Add</label>
-    <br />
-    <input type="text" id="text" formControlName="text" required />
-    <br />
-    <button type="submit" (ngSubmit)="addData()" [disabled]="dataForm.invalid">Submit</button>
-</form>

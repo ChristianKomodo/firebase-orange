@@ -16,7 +16,7 @@
   </div>
 </section>
 
-<section>
+<section *ngIf="!lockdown">
   <h2>Add a Movie Recommendation!</h2>
   <p class="mb-1-5">
     If you are logged in you can type in a movie title and your comments about
@@ -48,6 +48,12 @@
   <ng-template #nouser>
     <p>&#9888; You must be logged in to use this feature</p>
   </ng-template>
+</section>
+<section *ngIf="lockdown">
+  <p>
+    :( The <strong>Add Recommendation</strong> feature is disabled because of
+    too many submissions.
+  </p>
 </section>
 
 <section>

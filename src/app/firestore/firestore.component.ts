@@ -1,9 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Firestore, doc, getDoc, setDoc } from '@angular/fire/firestore';
+import { CollectionReference, Firestore, collection, collectionData, doc, getDoc, setDoc } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
-import { DataFormComponent } from './data-form/data-form.component';
 import { Auth, user } from '@angular/fire/auth';
 
 // Reference:
@@ -12,13 +11,14 @@ import { Auth, user } from '@angular/fire/auth';
 @Component({
     selector: 'app-firestore',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, DataFormComponent],
+    imports: [CommonModule, ReactiveFormsModule],
     templateUrl: './firestore.component.html',
     styleUrls: ['./firestore.component.scss']
 })
 export class FirestoreComponent implements OnInit {
     // Authenticated user
     private auth: Auth = inject(Auth);
+    usersCollection!: CollectionReference;
     user$ = user(this.auth);
     private userDataSubject = new BehaviorSubject<any | null>(null);
     // private userDataSubject = new BehaviorSubject<UserData | null>(null);  // ToDo: Why does this not work?
@@ -29,8 +29,29 @@ export class FirestoreComponent implements OnInit {
 
     constructor(private firestore: Firestore, private fb: FormBuilder) { }
 
+    lockdownCheck() {
+        // Checking to see if someone is spamming the site
+        // count the number of items in the "recommendation" collection
+        // if there are more than 10, then lockdown the site
+        // if there are less than 10, then add a new item
+        this.user$.subscribe((user) => {
+            console.log('subscribe user', user);
+            //   console.log('recommendations', recommendations);
+            //   this.recommendationCount = recommendations.length;
+            //   if (recommendations.length > 10) {
+            //     this.lockdown = true;
+            //   } else {
+            //     this.lockdown = false;
+            //   }
+        });
+    }
+
     ngOnInit(): void {
         this.setUpForms();
+
+        // Lock it down if there are already 10 registered users
+        // this is until I learn Auth Guards ;)
+        this.usersCollection = collection(this.firestore, 'users');
 
         // Get the user's data from the users collection
         const uuid = this.user$.subscribe((user) => {

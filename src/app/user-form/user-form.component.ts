@@ -34,9 +34,10 @@ export class UserFormComponent {
 
   onSubmitLogin() {
     if (this.authForm.valid) {
-      // console.log('Login Form values submitted:', this.authForm.value);
-      this.userService.signIn(this.authForm.value.username,
-        this.authForm.value.password);
+      this.userService.signIn(
+        this.authForm.value.username,
+        this.authForm.value.password
+      );
     }
   }
 
