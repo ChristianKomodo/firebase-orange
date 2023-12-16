@@ -4,6 +4,7 @@ import { canActivate, redirectLoggedInTo, redirectUnauthorizedTo } from '@angula
 import { HomeComponent } from './home/home.component';
 import { UserFormComponent } from './user-form/user-form.component';
 import { FirestoreComponent } from './firestore/firestore.component';
+import { UserDataComponent } from './user-data/user-data.component';
 
 // redirects logged in users
 const redirectLoggedInToFirestore = () => redirectLoggedInTo(['firestore']);
@@ -18,4 +19,5 @@ export const routes: Routes = [
   // { path: 'login', component: FirestoreComponent, canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin } },
   // Instead, use this short-hand version:
   { path: 'firestore', component: FirestoreComponent, ...canActivate(redirectUnauthorizedToLogin) },
+  { path: 'user-data', component: UserDataComponent, ...canActivate(redirectUnauthorizedToLogin) },
 ];

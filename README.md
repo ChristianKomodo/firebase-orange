@@ -14,6 +14,9 @@ https://github.com/angular/angularfire/blob/master/samples/modular/src/app/auth/
 Auth Guard:
 https://github.com/angular/angularfire/blob/master/site/src/auth/route-guards.md
 
+Firestore Fuction Reference:
+https://firebase.google.com/docs/reference/js/firestore_
+
 Working with Lists of Data (Firestore):
 https://firebase.google.com/docs/firestore/quickstart
 

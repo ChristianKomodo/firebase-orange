@@ -25,15 +25,13 @@ export class FirestoreComponent implements OnInit {
     userData$ = this.userDataSubject.asObservable();
     uid!: string;
     movieData!: string[];
-    dataForm!: FormGroup
+    dataForm!: FormGroup;
 
     constructor(private firestore: Firestore, private fb: FormBuilder) { }
 
     ngOnInit(): void {
         this.setUpForms();
 
-        // Lock it down if there are already 10 registered users
-        // this is until I learn Auth Guards ;)
         this.usersCollection = collection(this.firestore, 'users');
 
         // Get the user's data from the users collection
