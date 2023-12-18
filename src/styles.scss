@@ -126,6 +126,17 @@ strong {
   margin-bottom: -20px;
 }
 
+.form-container input {
+  margin-left: 1rem;
+}
+
+.error {
+  color: pink;
+  font-size: 14px;
+  display: block;
+  margin: 0.5rem 0;
+}
+
 .field {
   margin-bottom: 1rem;
 
@@ -189,6 +200,12 @@ button.delete-set-button {
 /* "mb-0-5" is short for "margin-bottom: 0.5rem" */
 .mb-0-5 {
   margin-bottom: 0.5rem;
+}
+.mb-1 {
+  margin-bottom: 1rem;
+}
+.mt-0-5 {
+  margin-top: 0.5rem;
 }
 .mb-1-5 {
   margin-bottom: 1.5rem;

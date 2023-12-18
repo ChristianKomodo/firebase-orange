@@ -1,7 +1,7 @@
 import { Firestore, collection, collectionData, addDoc, CollectionReference, DocumentReference, getDoc, doc, getDocs } from '@angular/fire/firestore';
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Auth, user } from '@angular/fire/auth';
 import { query } from '@angular/animations';
@@ -71,13 +71,21 @@ export class UserDataComponent implements OnInit {
     this.movieForm = this.fb.group({
       title: ['', Validators.required],
       year: ['', Validators.required],
-      omdbid: ['', Validators.required],
+      omdbid: ['', [Validators.required, this.omdbidValidator()]],
     });
+  }
+
+  omdbidValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+      const valid = /^tt\d{6,10}$/.test(value);
+      return valid ? null : { invalidOmdbid: true };
+    };
   }
 
   addMovie(): void {
     const movie = this.movieForm.value;
-    console.log('movie for values:', this.movieForm.value);
+    console.log('movie form values:', this.movieForm.value);
     if (!movie.title || !movie.year || !movie.omdbid) {
       console.log('missing movie data');
       return

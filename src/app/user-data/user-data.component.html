@@ -20,18 +20,32 @@
         formControlName="title"
         placeholder="Type a movie title"
       />
+      <small
+        class="error"
+        *ngIf="
+          movieForm.get('title')?.touched && movieForm.get('title')?.invalid
+        "
+      >
+        A Movie Title is required
+      </small>
     </div>
     <div class="field">
-      <label for="text">Year of Release</label>
+      <label for="year">Year of Release</label>
       <input
         id="year"
         type="number"
         formControlName="year"
         placeholder="Type the release year"
       />
+      <small
+        class="error"
+        *ngIf="movieForm.get('year')?.touched && movieForm.get('year')?.invalid"
+      >
+        A Movie year is required
+      </small>
     </div>
     <div class="field">
-      <label for="text"
+      <label for="omdbid"
         >IMDB ID (Found in the URL of the movie on imdb.com)</label
       >
       <input
@@ -40,7 +54,18 @@
         formControlName="omdbid"
         placeholder="Type the IMDB ID"
       />
+      <small
+        class="error"
+        *ngIf="
+          movieForm.get('omdbid')?.touched && movieForm.get('omdbid')?.invalid
+        "
+      >
+        A Movie IMDB ID is required. You can get this from the URL of a movie at
+        www.imdb.com.<br />
+        It will be in the URL and start with "tt" as in this example:
+        <em>tt12003946</em>.
+      </small>
     </div>
-    <button (click)="addMovie()">Add Movie</button>
+    <button class="mb-1 mt-0-5" (click)="addMovie()">Add Movie</button>
   </form>
 </section>
