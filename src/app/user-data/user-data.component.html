@@ -1,22 +1,10 @@
-<h2>Your User Data</h2>
-
-<form [formGroup]="movieDataForm" (ngSubmit)="updateUserData()">
-  <label for="movie">Enter a Favorite Movie</label>
-  <br />
-  <input type="text" id="title" formControlName="title" required />
-  <br />
-  <button
-    type="submit"
-    (ngSubmit)="updateUserData()"
-    [disabled]="movieDataForm.invalid"
-  >
-    Submit
-  </button>
-</form>
-
-<!-- <section>
-  <h3>All Users Profiles</h3>
+<section>
+  <h1>Favorite Movies</h1>
   <ul>
-    <li *ngFor="let user of users$ | async">User: {{ user.email }}</li>
+    <li *ngFor="let movie of someMovies">
+      {{ movie.title }}
+      ({{ movie.year }}) -
+      {{ movie.omdbid }}
+    </li>
   </ul>
-</section> -->
+</section>
