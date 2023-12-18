@@ -8,3 +8,39 @@
     </li>
   </ul>
 </section>
+
+<section class="box">
+  <h2>Add a Favorite Movie</h2>
+  <form class="form" [formGroup]="movieForm">
+    <div class="field">
+      <label for="title">Movie Title</label>
+      <input
+        id="title"
+        type="text"
+        formControlName="title"
+        placeholder="Type a movie title"
+      />
+    </div>
+    <div class="field">
+      <label for="text">Year of Release</label>
+      <input
+        id="year"
+        type="number"
+        formControlName="year"
+        placeholder="Type the release year"
+      />
+    </div>
+    <div class="field">
+      <label for="text"
+        >IMDB ID (Found in the URL of the movie on imdb.com)</label
+      >
+      <input
+        id="omdbid"
+        type="text"
+        formControlName="omdbid"
+        placeholder="Type the IMDB ID"
+      />
+    </div>
+    <button (click)="addMovie()">Add Movie</button>
+  </form>
+</section>

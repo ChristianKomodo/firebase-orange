@@ -69,12 +69,15 @@ export class UserDataComponent implements OnInit {
 
   setUpForms() {
     this.movieForm = this.fb.group({
-      movie: ['', Validators.required]
+      title: ['', Validators.required],
+      year: ['', Validators.required],
+      omdbid: ['', Validators.required],
     });
   }
 
-  addMovie(movie: Movie): void {
-    // const movie: Movie = { title, year, omdbid };
+  addMovie(): void {
+    const movie = this.movieForm.value;
+    console.log('movie for values:', this.movieForm.value);
     if (!movie.title || !movie.year || !movie.omdbid) {
       console.log('missing movie data');
       return

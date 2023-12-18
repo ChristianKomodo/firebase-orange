@@ -16,7 +16,7 @@
   </div>
 </section>
 
-<section *ngIf="!lockdown">
+<section class="box" *ngIf="!lockdown">
   <h2>Add a Movie Recommendation!</h2>
   <p class="mb-1-5">
     If you are logged in you can type in a movie title and your comments about
@@ -25,7 +25,7 @@
   <ng-container *ngIf="user$ | async; else nouser">
     <div class="speech-bubble form">
       <div class="field">
-        <label for="title">Movie Title</label>&nbsp; &nbsp;
+        <label for="title">Movie Title</label>
         <input
           id="title"
           type="text"
@@ -34,7 +34,7 @@
         /><br />
       </div>
       <div class="field">
-        <label for="text">Recommendation</label>&nbsp; &nbsp;
+        <label for="text">Recommendation</label>
         <input
           id="text"
           type="text"
@@ -49,6 +49,7 @@
     <p>&#9888; You must be logged in to use this feature</p>
   </ng-template>
 </section>
+
 <section *ngIf="lockdown">
   <p>
     :&#40; The <strong>Add Recommendation</strong> feature is disabled because
@@ -56,7 +57,7 @@
   </p>
 </section>
 
-<section>
+<section class="box">
   <h2>Recommendation Data as JSON</h2>
   <p>recommendation$ | async | json</p>
   <p>{{ recommendation$ | async | json }}</p>
