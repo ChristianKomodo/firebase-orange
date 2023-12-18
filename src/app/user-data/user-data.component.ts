@@ -1,4 +1,4 @@
-import { Firestore, collection, collectionData, addDoc, CollectionReference, DocumentReference, getDoc, doc, getDocs } from '@angular/fire/firestore';
+import { Firestore, collection, collectionData, addDoc, CollectionReference, DocumentReference, getDoc, doc, getDocs, onSnapshot } from '@angular/fire/firestore';
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
@@ -41,6 +41,7 @@ export class UserDataComponent implements OnInit {
 
   ngOnInit(): void {
     this.setUpForms();
+
     // get the uid of the current logged-in user
     this.user$.subscribe((user) => {
       if (user) {
@@ -52,15 +53,17 @@ export class UserDataComponent implements OnInit {
           return;
         }
         console.log('uid for fetching user data is', this.uid);
+
         // get the "movies" collection within the user's document
         const moviesCollection = collection(this.firestore, 'users', this.uid, 'movies');
-        getDocs(moviesCollection).then((querySnapshot) => {
+        // set up a real-time listener on the "movies" collection
+        onSnapshot(moviesCollection, (querySnapshot) => {
+          this.someMovies = []; // clear the array before adding the updated data
           querySnapshot.forEach((doc) => {
             const title = doc.data()['title'];
             const year = doc.data()['year'];
             const omdbid = doc.data()['omdbid'];
-            this.someMovies.push({ title: title, year: year, omdbid: omdbid });
-            console.log('someMovies', this.someMovies);
+            this.someMovies.unshift({ title: title, year: year, omdbid: omdbid });
           });
         });
       }

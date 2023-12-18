@@ -1,0 +1,18 @@
+ul.movie-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    border: 1px solid #ddd;
+    padding: 12px;
+    margin-bottom: 12px;
+    width: fit-content;
+  }
+}
+
+.movie-icon {
+  height: 50px;
+  width: 50px;
+  display: inline-block;
+}

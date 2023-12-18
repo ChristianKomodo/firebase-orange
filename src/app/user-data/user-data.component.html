@@ -1,6 +1,6 @@
 <section>
   <h1>Favorite Movies</h1>
-  <ul>
+  <ul class="movie-list">
     <li *ngFor="let movie of someMovies">
       {{ movie.title }}
       ({{ movie.year }}) -
@@ -10,7 +10,14 @@
 </section>
 
 <section class="box">
-  <h2>Add a Favorite Movie</h2>
+  <h2>
+    <img
+      class="movie-icon"
+      src="assets/movie-icon.webp"
+      alt="Movie icon image"
+    />
+    Add a Favorite Movie
+  </h2>
   <form class="form" [formGroup]="movieForm">
     <div class="field">
       <label for="title">Movie Title</label>
