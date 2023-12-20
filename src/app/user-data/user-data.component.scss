@@ -22,7 +22,7 @@ ul.movie-list {
 .search-container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  // justify-content: space-between;
 
   .movie-form {
     display: flex;
@@ -42,16 +42,20 @@ ul.movie-list {
     }
 
     input {
-      margin: 0 14px 0 14px;
+      margin: 0 14px 0 38px;
       font-size: 16px;
       padding: 4px 12px;
     }
 
     .error {
       position: absolute;
-      //   margin-left: 40px;
       margin: 0.25rem 0 0 40px;
     }
+  }
+
+  .message {
+    margin-left: 18px;
+    color: $accent-color;
   }
 
   button {
@@ -66,16 +70,19 @@ ul.movie-list {
   width: 50px;
   display: inline-block;
 }
+
 .movie-container {
   display: inline-block;
   padding-right: 26px;
 }
+
 .movie-title {
   font-weight: bold;
   color: #ccc;
   margin-bottom: 6px;
   max-width: 160px;
 }
+
 .movie-year {
   color: #999;
   margin-bottom: 12px;

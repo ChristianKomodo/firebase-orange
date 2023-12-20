@@ -39,7 +39,7 @@ export class UserDataComponent implements OnInit {
   movieSearchForm!: FormGroup;
   movieSearchReponse$!: Observable<MovieSearchResult>;
   movieSearchResults: Movie[] = [];
-  message = 'No Message';
+  message = '';
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     // get a reference to the user-profile collection
@@ -123,19 +123,20 @@ export class UserDataComponent implements OnInit {
     }
     this.searchMovie(title).subscribe({
       next: response => {
-        console.log('movie search for:', response);
-        console.log('too many results?', response.Response);
-        // handle the response
+        this.message = '';
+        console.log('searchMovie() response:', response);
+        // handle errors
         if (response.Response === 'False') {
           console.log('Error:', response.Error);
-          this.message = `<-- ${response.Error}`;
+          this.message = `⚠️ ${response.Error}`;
           return;
         }
+        // proccess results
         this.movieSearchResults = response.Search;
       },
       error: error => {
         console.error('Error occurred:', error);
-        this.message = `<-- ${error}`;
+        this.message = `⚠️ ${error}`;
       }
     });
   }
