@@ -7,6 +7,7 @@ export interface UserData {
 }
 
 export interface Movie {
+showButton: any;
 	Poster: string;
 	Title: string;
 	Type: string;

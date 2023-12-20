@@ -40,6 +40,7 @@ export class UserDataComponent implements OnInit {
   movieSearchReponse$!: Observable<MovieSearchResult>;
   movieSearchResults: Movie[] = [];
   message = '';
+  mode: 'search' | 'results' | 'details' = 'search';
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     // get a reference to the user-profile collection
@@ -133,11 +134,21 @@ export class UserDataComponent implements OnInit {
         }
         // proccess results
         this.movieSearchResults = response.Search;
+        // set the mode to "results" to display the results
+        this.mode = 'results';
       },
       error: error => {
         console.error('Error occurred:', error);
         this.message = `⚠️ ${error}`;
       }
     });
+  }
+  
+  onMovieDetails(movie: Movie): void {
+    console.log('selected this movie:', movie);
+    this.mode = 'details';
+  }
+  onAddMovie(movie: Movie): void {
+    console.log('selected this movie:', movie);
   }
 }
