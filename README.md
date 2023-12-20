@@ -6,7 +6,7 @@
 
 This application uses [Firebase](https://firebase.google.com/) and to get it running, you will need to create an account in Firebase, create an "app" there, enable Cloud Firestore, then in the console it will give you a Firebase configuration object. Replace what is in `src/firebase.config.ts` with your own custom config and the rest should work.
 
-## Docs
+## Helpful Links and Documentation
 
 Auth:
 https://github.com/angular/angularfire/blob/master/samples/modular/src/app/auth/auth.component.ts
