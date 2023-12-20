@@ -143,12 +143,19 @@ export class UserDataComponent implements OnInit {
       }
     });
   }
-  
+
   onMovieDetails(movie: Movie): void {
     console.log('selected this movie:', movie);
     this.mode = 'details';
   }
   onAddMovie(movie: Movie): void {
     console.log('selected this movie:', movie);
+    addDoc(collection(this.firestore, 'users', this.uid, 'movies'), movie).then((docRef: DocumentReference) => {
+      console.log('Document written with ID: ', docRef.id);
+      this.message = `✅ Added "${movie.Title}" to your list`;
+    }
+    ).catch((error) => {
+      console.error('Error adding document: ', error);
+    });
   }
 }

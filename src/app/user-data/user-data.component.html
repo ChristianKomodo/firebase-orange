@@ -1,14 +1,18 @@
-<!-- <section>
-  <h1>Favorite Movies</h1>
-  <pre>{{ someMovies | json }}</pre>
-  <ul class="movie-list">
-    <li *ngFor="let movie of someMovies">
-      {{ movie.Title }}
-      ({{ movie.Year }}) -
-      {{ movie.imdbID }}
-    </li>
-  </ul>
-</section> -->
+<section>
+  <h1 *ngIf="someMovies.length; else noFavorites">Favorite Movies</h1>
+  <ng-template #noFavorites>
+    <p>You have no movies saved to your Favorites</p>
+  </ng-template>
+  <!-- <pre>{{ someMovies | json }}</pre> -->
+  <ng-container>
+    <div class="movie-container" *ngFor="let movie of someMovies">
+      <div class="movie-title">{{ movie.Title }}</div>
+      <div class="movie-year">{{ movie.Year }}</div>
+      <div class="movie-box" [style.background-image]="'url(' + movie.Poster + ')'"></div>
+      <button class="movie-button" role="button">Remove</button>
+    </div>
+  </ng-container>
+</section>
 
 <section class="box form-box">
   <div class="search-container">
@@ -24,7 +28,7 @@
           A Movie Title is required
         </small>
       </div>
-      <button class="search-button" (click)="onMovieSearch()" [disabled]="movieSearchForm.invalid">
+      <button class="search-button" (click)="onMovieSearch()">
         Search
       </button>
     </form>
