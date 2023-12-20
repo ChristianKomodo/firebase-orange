@@ -1,3 +1,11 @@
+// Sass Variables
+$primary-color: #ccc;
+$accent-color: #ebbc6d;
+
+.form-box {
+  padding: 0 16px;
+}
+
 ul.movie-list {
   list-style-type: none;
   padding: 0;
@@ -11,19 +19,77 @@ ul.movie-list {
   }
 }
 
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .movie-form {
+    display: flex;
+    align-items: center;
+
+    .field {
+      margin: 0;
+    }
+
+    label {
+      position: absolute;
+      clip: rect(1px 1px 1px 1px);
+      border: 0;
+      height: 1px;
+      width: 1px;
+      overflow: hidden;
+    }
+
+    input {
+      margin: 0 14px 0 40px;
+      font-size: 16px;
+      padding: 4px 12px;
+    }
+
+    .error {
+      position: absolute;
+      //   margin-left: 40px;
+      margin: 0.25rem 0 0 40px;
+    }
+  }
+
+  button {
+    background-color: $accent-color;
+    color: #fff;
+    border-radius: 4px;
+  }
+}
+
 .movie-icon {
   height: 50px;
   width: 50px;
   display: inline-block;
 }
+.movie-container {
+  display: inline-block;
+  padding-right: 26px;
+}
+.movie-title {
+  font-weight: bold;
+  color: #ccc;
+  margin-bottom: 6px;
+  max-width: 160px;
+}
+.movie-year {
+  color: #999;
+  margin-bottom: 12px;
+  max-width: 160px;
+}
 
-$rectangleHeight: 200px;
+$rectangleHeight: 201px;
 $rectangleWidth: 140px;
-$rectangleDepth: 35px;
+$rectangleDepth: 34px;
 $boxHeight: 200px;
 $boxWidth: 100px;
 
 .movie-box {
+  outline: 1px solid #222;
   position: relative;
   width: $rectangleWidth;
   height: $rectangleHeight;
@@ -31,6 +97,13 @@ $boxWidth: 100px;
   transform-style: preserve-3d;
   margin-bottom: 20px;
   background-size: contain;
+  transition: transform 0.25s ease-out;
+  cursor: pointer;
+  background-color: #444;
+
+  &:hover {
+    transform: perspective(1000px) rotateY(0deg); // Rotate rectangle on hover
+  }
 }
 
 .movie-box:before {
@@ -38,7 +111,7 @@ $boxWidth: 100px;
   position: absolute;
   width: $rectangleDepth;
   height: $rectangleHeight;
-  background: #666;
+  background: #222;
 }
 
 .movie-box:before {

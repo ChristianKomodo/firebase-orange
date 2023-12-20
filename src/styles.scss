@@ -1,3 +1,7 @@
+// Sass Variables
+$primary-color: #ccc;
+$accent-color: #ebbc6d;
+
 * {
   font-family: "Lato", sans-serif;
 }
@@ -9,14 +13,14 @@ body {
 
 p,
 div {
-  color: #999;
+  color: $primary-color;
 }
 
 small,
 h1,
 h2,
 h3 {
-  color: #ccc;
+  color: $accent-color;
 }
 
 h1 {
@@ -55,9 +59,6 @@ p {
 a {
   color: #6fb8ff;
 }
-
-// scss variable for primary color
-$primary-color: #999;
 
 section.box {
   padding: 1rem 2rem;
@@ -186,11 +187,11 @@ button:hover:not([disabled]):not(.nav-label) {
   border: 1px solid #aaa;
 }
 button:disabled {
-  opacity: 0.25;
+  opacity: 0.5;
   cursor: default;
 }
 button.delete-set-button {
-  color: #999;
+  color: $primary-color;
   background-color: #3c3c3c;
   border: 1px solid #555;
 }

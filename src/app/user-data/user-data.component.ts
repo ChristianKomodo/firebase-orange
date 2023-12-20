@@ -89,7 +89,7 @@ export class UserDataComponent implements OnInit {
   addMovie(): void {
     const movie = this.movieForm.value;
     console.log('movie form values:', this.movieForm.value);
-    if (!movie.title || !movie.year || !movie.imdbid) {
+    if (!movie.Title || !movie.Year || !movie.imdbID) {
       console.log('missing movie data');
       return
     }
@@ -114,6 +114,10 @@ export class UserDataComponent implements OnInit {
       next: response => {
         console.log('movie search for:', response);
         // handle the response
+        if (response.Response === 'False') {
+          console.log('Error:', response.Error);
+          return;
+        }
         this.movieSearchResults = response.Search;
       },
       error: error => {
