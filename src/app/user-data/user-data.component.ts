@@ -7,6 +7,7 @@ import { Auth, UserProfile, user } from '@angular/fire/auth';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { Movie, MovieSearchResult } from '../models/models';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 
 @Component({
@@ -14,7 +15,17 @@ import { Movie, MovieSearchResult } from '../models/models';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
   templateUrl: './user-data.component.html',
-  styleUrls: ['./user-data.component.scss']
+  styleUrls: ['./user-data.component.scss'],
+  // animations: [
+  //   trigger('fadeInOut', [
+  //     state('void', style({
+  //       opacity: 0
+  //     })),
+  //     transition(':enter, :leave', [
+  //       animate(500)
+  //     ]),
+  //   ]),
+  // ]
 })
 export class UserDataComponent implements OnInit {
   private firestore: Firestore = inject(Firestore); // inject Cloud Firestore
@@ -28,7 +39,7 @@ export class UserDataComponent implements OnInit {
   movieSearchForm!: FormGroup;
   movieSearchReponse$!: Observable<MovieSearchResult>;
   movieSearchResults: Movie[] = [];
-
+  message = 'No Message';
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     // get a reference to the user-profile collection
@@ -100,7 +111,7 @@ export class UserDataComponent implements OnInit {
   // get movie search results from the OMDB API
   searchMovie(title: string): Observable<any> {
     const apiKey = '76a7475a';
-    const url = `http://www.omdbapi.com/?s=${title}&apikey=${apiKey}`;
+    const url = `https://www.omdbapi.com/?s=${title}&apikey=${apiKey}`;
     return this.http.get(url);
   }
 
@@ -113,16 +124,18 @@ export class UserDataComponent implements OnInit {
     this.searchMovie(title).subscribe({
       next: response => {
         console.log('movie search for:', response);
+        console.log('too many results?', response.Response);
         // handle the response
         if (response.Response === 'False') {
           console.log('Error:', response.Error);
+          this.message = `<-- ${response.Error}`;
           return;
         }
         this.movieSearchResults = response.Search;
       },
       error: error => {
         console.error('Error occurred:', error);
-        // handle the error here
+        this.message = `<-- ${error}`;
       }
     });
   }
