@@ -5,3 +5,17 @@ export interface UserData {
 	photoURL?: string;
 	movies?: any;
 }
+
+export interface Movie {
+	Poster: string;
+	Title: string;
+	Type: string;
+	Year: number;
+	imdbID: string;
+}
+
+export interface MovieSearchResult {
+	Response: string;
+	Search: Array<Movie>;
+	totalResults: string;
+}

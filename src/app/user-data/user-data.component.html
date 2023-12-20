@@ -2,23 +2,16 @@
   <h1>Favorite Movies</h1>
   <ul class="movie-list">
     <li *ngFor="let movie of someMovies">
-      {{ movie.title }}
-      ({{ movie.year }}) -
-      {{ movie.omdbid }}
+      {{ movie.Title }}
+      ({{ movie.Year }}) -
+      {{ movie.imdbID }}
     </li>
   </ul>
 </section>
 
+<h2>IMDB Movie Search</h2>
 <section class="box">
-  <h2>
-    <img
-      class="movie-icon"
-      src="assets/movie-icon.webp"
-      alt="Movie icon image"
-    />
-    Add a Favorite Movie
-  </h2>
-  <form class="form" [formGroup]="movieForm">
+  <form [formGroup]="movieSearchForm" class="form">
     <div class="field">
       <label for="title">Movie Title</label>
       <input
@@ -30,49 +23,27 @@
       <small
         class="error"
         *ngIf="
-          movieForm.get('title')?.touched && movieForm.get('title')?.invalid
+          movieSearchForm.get('title')?.touched &&
+          movieSearchForm.get('title')?.invalid
         "
       >
         A Movie Title is required
       </small>
     </div>
-    <div class="field">
-      <label for="year">Year of Release</label>
-      <input
-        id="year"
-        type="number"
-        formControlName="year"
-        placeholder="Type the release year"
-      />
-      <small
-        class="error"
-        *ngIf="movieForm.get('year')?.touched && movieForm.get('year')?.invalid"
-      >
-        A Movie year is required
-      </small>
-    </div>
-    <div class="field">
-      <label for="omdbid"
-        >IMDB ID (Found in the URL of the movie on imdb.com)</label
-      >
-      <input
-        id="omdbid"
-        type="text"
-        formControlName="omdbid"
-        placeholder="Type the IMDB ID"
-      />
-      <small
-        class="error"
-        *ngIf="
-          movieForm.get('omdbid')?.touched && movieForm.get('omdbid')?.invalid
-        "
-      >
-        A Movie IMDB ID is required. You can get this from the URL of a movie at
-        www.imdb.com.<br />
-        It will be in the URL and start with "tt" as in this example:
-        <em>tt12003946</em>.
-      </small>
-    </div>
-    <button class="mb-1 mt-0-5" (click)="addMovie()">Add Movie</button>
+    <button class="mb-1 mt-0-5" (click)="onMovieSearch()">Add Movie</button>
   </form>
 </section>
+
+<h2>movieSearchResults</h2>
+
+<!-- <div class="movie-box" *ngFor="let movie of movieSearchResults"> -->
+<div
+  class="movie-box"
+  *ngFor="let movie of movieSearchResults"
+  [style.background-image]="'url(' + movie.Poster + ')'"
+>
+  <!-- <h2>{{ movie.Title }}</h2>
+  <p>{{ movie.Year }}</p>
+  <p>{{ movie.Type }}</p> -->
+  <!-- <img src="{{ movie.Poster }}" alt="{{ movie.Title }}" /> -->
+</div>

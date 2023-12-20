@@ -2,23 +2,17 @@ import { Firestore, collection, collectionData, addDoc, CollectionReference, Doc
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { Auth, user } from '@angular/fire/auth';
-import { query } from '@angular/animations';
+import { Observable, map } from 'rxjs';
+import { Auth, UserProfile, user } from '@angular/fire/auth';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
-interface UserProfile {
-  email: string;
-}
-interface Movie {
-  title: string;
-  year: string;
-  omdbid: string;
-}
+import { Movie, MovieSearchResult } from '../models/models';
+
 
 @Component({
   selector: 'app-user-data',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
   templateUrl: './user-data.component.html',
   styleUrls: ['./user-data.component.scss']
 })
@@ -31,8 +25,12 @@ export class UserDataComponent implements OnInit {
   uid!: string;
   someMovies: Movie[] = [];
   movieForm!: FormGroup;
+  movieSearchForm!: FormGroup;
+  movieSearchReponse$!: Observable<MovieSearchResult>;
+  movieSearchResults: Movie[] = [];
 
-  constructor(private fb: FormBuilder) {
+
+  constructor(private fb: FormBuilder, private http: HttpClient) {
     // get a reference to the user-profile collection
     const userProfileCollection = collection(this.firestore, 'users');
     // get documents (data) from the collection using collectionData
@@ -52,18 +50,16 @@ export class UserDataComponent implements OnInit {
           console.error('user uid is empty');
           return;
         }
-        console.log('uid for fetching user data is', this.uid);
 
         // get the "movies" collection within the user's document
         const moviesCollection = collection(this.firestore, 'users', this.uid, 'movies');
+
         // set up a real-time listener on the "movies" collection
         onSnapshot(moviesCollection, (querySnapshot) => {
           this.someMovies = []; // clear the array before adding the updated data
           querySnapshot.forEach((doc) => {
-            const title = doc.data()['title'];
-            const year = doc.data()['year'];
-            const omdbid = doc.data()['omdbid'];
-            this.someMovies.unshift({ title: title, year: year, omdbid: omdbid });
+            const movieItem: Movie = doc.data() as Movie;
+            this.someMovies.unshift(movieItem);
           });
         });
       }
@@ -74,7 +70,11 @@ export class UserDataComponent implements OnInit {
     this.movieForm = this.fb.group({
       title: ['', Validators.required],
       year: ['', Validators.required],
-      omdbid: ['', [Validators.required, this.omdbidValidator()]],
+      imdbid: ['', [Validators.required, this.omdbidValidator()]],
+    });
+
+    this.movieSearchForm = this.fb.group({
+      title: ['', Validators.required]
     });
   }
 
@@ -89,11 +89,37 @@ export class UserDataComponent implements OnInit {
   addMovie(): void {
     const movie = this.movieForm.value;
     console.log('movie form values:', this.movieForm.value);
-    if (!movie.title || !movie.year || !movie.omdbid) {
+    if (!movie.title || !movie.year || !movie.imdbid) {
       console.log('missing movie data');
       return
     }
     console.log('adding movie', movie);
     addDoc(collection(this.firestore, 'users', this.uid, 'movies'), movie);
+  }
+
+  // get movie search results from the OMDB API
+  searchMovie(title: string): Observable<any> {
+    const apiKey = '76a7475a';
+    const url = `http://www.omdbapi.com/?s=${title}&apikey=${apiKey}`;
+    return this.http.get(url);
+  }
+
+  onMovieSearch(): void {
+    const title = this.movieSearchForm.get('title')?.value;
+    if (!title) {
+      console.log('missing movie title');
+      return;
+    }
+    this.searchMovie(title).subscribe({
+      next: response => {
+        console.log('movie search for:', response);
+        // handle the response
+        this.movieSearchResults = response.Search;
+      },
+      error: error => {
+        console.error('Error occurred:', error);
+        // handle the error here
+      }
+    });
   }
 }
