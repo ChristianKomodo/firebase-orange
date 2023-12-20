@@ -47,3 +47,12 @@
   <p>{{ movie.Type }}</p> -->
   <!-- <img src="{{ movie.Poster }}" alt="{{ movie.Title }}" /> -->
 </div>
+
+<hr />
+<div class="movie-box" *ngFor="let movie of movieSearchResults">
+  <div
+    class="front"
+    [style.background-image]="'url(' + movie.Poster + ')'"
+  ></div>
+  <div class="side"></div>
+</div>
