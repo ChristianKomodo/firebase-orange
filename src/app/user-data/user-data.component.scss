@@ -1,3 +1,4 @@
+@use "sass:math";
 // Sass Variables
 $primary-color: #ccc;
 $accent-color: #ebbc6d;
@@ -101,6 +102,7 @@ button.movie-button {
 }
 
 .movie-container {
+  outline: 1px solid orange;
   position: relative;
   display: inline-block;
   padding-right: 26px;
@@ -159,7 +161,8 @@ $boxWidth: 100px;
 
 .movie-box:before {
   right: 0;
-  transform: rotateY(90deg) translateZ($rectangleWidth / 4);
+  // transform: rotateY(90deg) translateZ($rectangleWidth / 4);
+  transform: rotateY(90deg) translateZ(math.div($rectangleWidth, 4));
   transform-origin: left;
 }
 
