@@ -160,7 +160,7 @@ export class UserDataComponent implements OnInit {
           this.movieSearchResults = response.Search;
           setTimeout(() => {
             this.searchResults.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }, 1000);
+          }, 250);
         }
       },
       error: error => {
