@@ -1,20 +1,29 @@
+<ng-container *ngIf="modalOpen">
+  <div class="modal-backdrop"></div>
+  <section class="modal-box">
+    <h2>Movie Details</h2>
+    <p>Here are some details</p>
+    <button class="modal-button" (click)="onModalClose()">Close</button>
+  </section>
+</ng-container>
+
 <section>
   <h1 *ngIf="someMovies.length; else noFavorites">Favorite Movies</h1>
   <ng-template #noFavorites>
     <p>You have no movies saved to your Favorites</p>
   </ng-template>
 
-  <ng-container>
-    <div class="movie-container" *ngFor="let movie of someMovies">
-      <div class="movie-title">{{ movie.Title }}</div>
-      <div class="movie-year">{{ movie.Year }}</div>
-      <div
-        class="movie-box"
-        [style.background-image]="'url(' + movie.Poster + ')'"
-      ></div>
-      <button class="movie-button" role="button">Remove</button>
-    </div>
-  </ng-container>
+  <div class="movie-container" *ngFor="let movie of someMovies">
+    <div class="movie-title">{{ movie.Title }}</div>
+    <div class="movie-year">{{ movie.Year }}</div>
+    <div
+      class="movie-box"
+      [style.background-image]="'url(' + movie.Poster + ')'"
+    ></div>
+    <button class="movie-button" (click)="onRemoveMovie(movie)" role="button">
+      Remove
+    </button>
+  </div>
 </section>
 
 <section class="box form-box">
@@ -46,8 +55,8 @@
   </div>
 </section>
 
-<section class="box" *ngIf="mode === 'results'">
-  <h2 *ngIf="movieSearchResults.length">Search Results</h2>
+<section class="box" *ngIf="movieSearchResults.length">
+  <h2>Search Results</h2>
 
   <ng-container>
     <div class="movie-container" *ngFor="let movie of movieSearchResults">
@@ -59,7 +68,7 @@
       ></div>
       <button
         class="movie-button"
-        (click)="onMovieDetails(movie)"
+        (click)="onMovieSearchDetails(movie.imdbID)"
         role="button"
       >
         Movie Details
@@ -70,5 +79,3 @@
     </div>
   </ng-container>
 </section>
-
-<section class="box" *ngIf="mode === 'details'">Movie Details!</section>

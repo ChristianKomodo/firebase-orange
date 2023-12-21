@@ -1,4 +1,4 @@
-import { Firestore, collection, collectionData, addDoc, CollectionReference, DocumentReference, getDoc, doc, getDocs, onSnapshot } from '@angular/fire/firestore';
+import { Firestore, collection, collectionData, addDoc, CollectionReference, DocumentReference, getDoc, doc, getDocs, onSnapshot, deleteDoc } from '@angular/fire/firestore';
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
@@ -7,8 +7,6 @@ import { Auth, UserProfile, user } from '@angular/fire/auth';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { Movie, MovieSearchResult } from '../models/models';
-import { animate, state, style, transition, trigger } from '@angular/animations';
-
 
 @Component({
   selector: 'app-user-data',
@@ -16,16 +14,6 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
   imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
   templateUrl: './user-data.component.html',
   styleUrls: ['./user-data.component.scss'],
-  // animations: [
-  //   trigger('fadeInOut', [
-  //     state('void', style({
-  //       opacity: 0
-  //     })),
-  //     transition(':enter, :leave', [
-  //       animate(500)
-  //     ]),
-  //   ]),
-  // ]
 })
 export class UserDataComponent implements OnInit {
   private firestore: Firestore = inject(Firestore); // inject Cloud Firestore
@@ -39,8 +27,9 @@ export class UserDataComponent implements OnInit {
   movieSearchForm!: FormGroup;
   movieSearchReponse$!: Observable<MovieSearchResult>;
   movieSearchResults: Movie[] = [];
+  movieDetailsResults: Movie[] = [];
   message = '';
-  mode: 'search' | 'results' | 'details' = 'search';
+  modalOpen = false;
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     // get a reference to the user-profile collection
@@ -70,9 +59,13 @@ export class UserDataComponent implements OnInit {
         onSnapshot(moviesCollection, (querySnapshot) => {
           this.someMovies = []; // clear the array before adding the updated data
           querySnapshot.forEach((doc) => {
+            console.log('doc.id:', doc.id);
             const movieItem: Movie = doc.data() as Movie;
+            // Add the document id to the movie object
+            movieItem.id = doc.id;
             this.someMovies.unshift(movieItem);
           });
+          console.log('someMovies:', this.someMovies);
         });
       }
     });
@@ -115,6 +108,33 @@ export class UserDataComponent implements OnInit {
     const url = `https://www.omdbapi.com/?s=${title}&apikey=${apiKey}`;
     return this.http.get(url);
   }
+  searchMovieDetails(imdbID: string): Observable<any> {
+    const apiKey = '76a7475a';
+    const url = `https://www.omdbapi.com/?i=${imdbID}&apikey=${apiKey}`;
+    return this.http.get(url);
+  }
+
+  onMovieSearchDetails(imdbID: string): void {
+    this.searchMovieDetails(imdbID).subscribe({
+      next: response => {
+        this.message = '';
+        console.log('searchMovieDetails() response:', response);
+        // handle errors
+        if (response.Response === 'False') {
+          console.log('Error:', response.Error);
+          this.message = `⚠️ ${response.Error}`;
+          return;
+        }
+        // proccess results
+        this.movieDetailsResults = response.Search;
+        this.modalOpen = true;
+      },
+      error: error => {
+        console.error('Error occurred:', error);
+        this.message = `⚠️ ${error}`;
+      }
+    });
+  }
 
   onMovieSearch(): void {
     const title = this.movieSearchForm.get('title')?.value;
@@ -134,8 +154,6 @@ export class UserDataComponent implements OnInit {
         }
         // proccess results
         this.movieSearchResults = response.Search;
-        // set the mode to "results" to display the results
-        this.mode = 'results';
       },
       error: error => {
         console.error('Error occurred:', error);
@@ -144,12 +162,12 @@ export class UserDataComponent implements OnInit {
     });
   }
 
-  onMovieDetails(movie: Movie): void {
-    console.log('selected this movie:', movie);
-    this.mode = 'details';
-  }
   onAddMovie(movie: Movie): void {
-    console.log('selected this movie:', movie);
+    if (this.someMovies.find(item => item.imdbID === movie.imdbID)) {
+      console.log('movie already in list');
+      this.message = `⚠️ "${movie.Title}" is already in your list`;
+      return;
+    }
     addDoc(collection(this.firestore, 'users', this.uid, 'movies'), movie).then((docRef: DocumentReference) => {
       console.log('Document written with ID: ', docRef.id);
       this.message = `✅ Added "${movie.Title}" to your list`;
@@ -157,5 +175,30 @@ export class UserDataComponent implements OnInit {
     ).catch((error) => {
       console.error('Error adding document: ', error);
     });
+  }
+
+  onRemoveMovie(movie: Movie): void {
+    console.log('removing this movie:', movie);
+    const movieDoc = doc(this.firestore, 'users', this.uid, 'movies', movie.id);
+    getDoc(movieDoc).then((docSnap) => {
+      if (docSnap.exists()) {
+        console.log('Document data:', docSnap.data());
+        // delete the document
+        setTimeout(() => {
+          this.message = `✅ Removed "${movie.Title}" from your list`;
+          this.someMovies = this.someMovies.filter(item => item.id !== movie.id);
+          deleteDoc(movieDoc);
+        }, 2000);
+      } else {
+        // doc.data() will be undefined in this case
+        console.log('No such document to remove!');
+      }
+    }).catch((error) => {
+      console.log('Error getting document:', error);
+    });
+  }
+
+  onModalClose(): void {
+    this.modalOpen = false;
   }
 }
