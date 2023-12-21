@@ -2,6 +2,7 @@
 $primary-color: #ccc;
 $accent-color: #ebbc6d;
 $button-color: #ff4742;
+@use "sass:math";
 
 .form-box {
   padding: 0 16px;
@@ -161,7 +162,7 @@ $boxWidth: 100px;
 
 .movie-box:before {
   right: 0;
-  transform: rotateY(90deg) translateZ($rectangleWidth / 4);
+  transform: rotateY(90deg) translateZ(math.div($rectangleWidth, 4));
   transform-origin: left;
 }
 
