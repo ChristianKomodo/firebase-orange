@@ -62,16 +62,12 @@ ul.movie-list {
 
 button.movie-button,
 button.search-button {
-  // Initially hidden, but shown on parent's hover
-  opacity: 0;
   transition: opacity 0.5s ease-in-out;
   border: none;
-  background: linear-gradient(
-    120deg,
-    darkmagenta,
-    $button-color,
-    $accent-color
-  );
+  background: linear-gradient(120deg,
+      darkmagenta,
+      $button-color,
+      $accent-color );
   background-size: 200% 100%;
   background-position: 100% 0;
   transition: background-position 0.5s;
@@ -90,6 +86,8 @@ button.search-button {
 }
 
 button.movie-button {
+  // Initially hidden, but shown on parent's hover
+  opacity: 0;
   transform: scale(0.75);
   position: absolute;
   bottom: 0;
