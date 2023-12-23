@@ -23,11 +23,11 @@ export class UserFormComponent {
     @Optional() private auth: Auth
   ) {
     this.authForm = this.fb.group({
-      username: ['', [Validators.required]],
+      email: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
     this.signupForm = this.fb.group({
-      username: ['', [Validators.required]],
+      email: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
   }
@@ -35,7 +35,7 @@ export class UserFormComponent {
   onSubmitLogin() {
     if (this.authForm.valid) {
       this.userService.signIn(
-        this.authForm.value.username,
+        this.authForm.value.email,
         this.authForm.value.password
       );
     }
@@ -43,14 +43,14 @@ export class UserFormComponent {
 
   onSubmitSignup() {
     if (this.signupForm.valid) {
-      const username = this.signupForm.value.username;
+      const email = this.signupForm.value.email;
       const password = this.signupForm.value.password;
-      console.log(`Signing up with username ${username} and password ${password}`);
-      if (!username || !password) {
+      console.log(`Signing up with email ${email} and password ${password}`);
+      if (!email || !password) {
         console.error('user service signUp() email or password is empty');
         return;
       }
-      this.userService.signUp(username, password);
+      this.userService.signUp(email, password);
     }
   }
 }

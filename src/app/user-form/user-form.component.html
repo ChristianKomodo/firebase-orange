@@ -8,20 +8,28 @@
       <button (click)="whichForm = 'signup'">Sign Up</button>
     </p>
     <form [formGroup]="authForm" (ngSubmit)="onSubmitLogin()">
-      <label for="username">Username:</label>
-      <input type="text" id="username" formControlName="username" />
+      <label for="email">Email Address:</label>
+      <input
+        type="email"
+        id="email"
+        formControlName="email"
+        autocomplete="email"
+      />
       <br />
       <small
         class="error"
-        *ngIf="
-          authForm.get('username')?.touched && authForm.get('username')?.invalid
-        "
+        *ngIf="authForm.get('email')?.touched && authForm.get('email')?.invalid"
       >
         A user name is required
       </small>
       <br />
       <label for="password">Password:</label>
-      <input type="password" id="password" formControlName="password" />
+      <input
+        type="password"
+        id="password"
+        formControlName="password"
+        autocomplete="current-password"
+      />
       <br />
       <small
         class="error"
@@ -43,21 +51,30 @@
       <button (click)="whichForm = 'login'">Log In</button>
     </p>
     <form [formGroup]="signupForm" (ngSubmit)="onSubmitSignup()">
-      <label for="username">Username:</label>
-      <input type="text" id="username" formControlName="username" />
+      <label for="email">Email Address:</label>
+      <input
+        type="email"
+        id="email"
+        formControlName="email"
+        autocomplete="email"
+      />
       <br />
       <small
         class="error"
         *ngIf="
-          signupForm.get('username')?.touched &&
-          signupForm.get('username')?.invalid
+          signupForm.get('email')?.touched && signupForm.get('email')?.invalid
         "
       >
         A user name is required
       </small>
       <br />
       <label for="password">Password:</label>
-      <input type="password" id="password" formControlName="password" />
+      <input
+        type="password"
+        id="password"
+        formControlName="password"
+        autocomplete="current-password"
+      />
       <br />
       <small
         class="error"
