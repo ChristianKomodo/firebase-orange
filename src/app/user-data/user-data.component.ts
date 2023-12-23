@@ -5,6 +5,8 @@ import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validatio
 import { Observable, map } from 'rxjs';
 import { Auth, UserProfile, user } from '@angular/fire/auth';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ViewChild, ElementRef } from '@angular/core';
+
 
 import { Movie, MovieSearchResult } from '../models/models';
 
@@ -16,6 +18,8 @@ import { Movie, MovieSearchResult } from '../models/models';
   styleUrls: ['./user-data.component.scss'],
 })
 export class UserDataComponent implements OnInit {
+  @ViewChild('searchResults') searchResults!: ElementRef;
+  // @ViewChild('searchResults', { read: ElementRef, static: false }) searchResults!: ElementRef;
   private firestore: Firestore = inject(Firestore); // inject Cloud Firestore
   users$: Observable<UserProfile[]>;
   moviesCollection!: CollectionReference;
@@ -151,9 +155,13 @@ export class UserDataComponent implements OnInit {
           console.log('Error:', response.Error);
           this.message = `⚠️ ${response.Error}`;
           return;
+        } else {
+          // success results (response was "true")
+          this.movieSearchResults = response.Search;
+          setTimeout(() => {
+            this.searchResults.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 250);
         }
-        // proccess results
-        this.movieSearchResults = response.Search;
       },
       error: error => {
         console.error('Error occurred:', error);
