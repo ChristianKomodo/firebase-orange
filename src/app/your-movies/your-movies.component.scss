@@ -1,0 +1,35 @@
+.review-bubble {
+  padding: 26px;
+
+  .box {
+    padding-left: 16px;
+  }
+
+  h3 {
+    margin: 0px;
+  }
+
+  .movie-headline {
+    margin-bottom: 16px;
+  }
+
+  .review-title {
+    color: #ddd;
+    margin-bottom: -10px;
+  }
+
+  .review-poster {
+    width: 175px;
+    margin-right: 20px;
+    height: fit-content;
+  }
+
+  .your-review {
+    display: block;
+    margin-bottom: 8px;
+  }
+}
+
+.title-and-rating {
+  width: 100%;
+}

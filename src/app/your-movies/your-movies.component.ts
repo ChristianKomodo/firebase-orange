@@ -52,6 +52,11 @@ export class YourMoviesComponent {
     });
   }
 
+  // For aligning stars on the right side of Reviews
+  getStarPositions(rating: number): number[] {
+    return Array.from({ length: rating }, (_, i) => 30 + i * 30);
+  }
+
   // onAddReview(review: Review): void {
   //   console.log('onAddReview:', review);
   //   addDoc(collection(this.firestore, 'users', this.uid, 'reviews'), review).then((docRef: DocumentReference) => {

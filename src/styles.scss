@@ -237,6 +237,27 @@ button.delete-set-button {
   }
 }
 
+.movie-headline {
+  font-size: 38px;
+  font-weight: normal;
+  margin: 16px 0;
+
+  small {
+    font-size: 22px;
+    color: #ccc;
+    padding-left: 8px;
+  }
+}
+
+.star {
+  position: absolute;
+  top: 36px;
+  width: 30px;
+  height: 30px;
+  fill: $accent-color;
+  opacity: 0.8;
+}
+
 /* Layout Helper Classes */
 
 /* "mb-0-5" is short for "margin-bottom: 0.5rem" */
@@ -257,7 +278,11 @@ button.delete-set-button {
 .row {
   display: flex;
   justify-content: space-between;
-}
-.row.game-width {
-  width: 480px;
+
+  &.row-left {
+    justify-content: flex-start;
+  }
+  .full-width-row {
+    width: 100%;
+  }
 }

@@ -1,14 +1,44 @@
-<section class="box">
-  <h1>Your Movie Reviews</h1>
-  <p>
-    To add a review,
-    <a [routerLink]="['/user-data']">search up the movie</a> and then select
-    "Add a Review".
-  </p>
+<h1>Your Movie Reviews</h1>
+<p>
+  To add a review, go into Movie Details from a
+  <a [routerLink]="['/user-data']">Movie Search</a> and then select "Add a
+  Review".
+</p>
 
-  <div class="review">
-    <h3>Movie Title</h3>
-    <p>(movie image)</p>
-    <p>Your review (use the speech bubble CSS style)</p>
+<div class="speech-bubble review-bubble" *ngFor="let review of allReviews">
+  <div class="row row-left">
+    <img
+      [src]="review.movie.Poster"
+      class="review-poster"
+      alt="Image of {{ review.movie.Title }} movie poster"
+    />
+    <div class="row full-width-row">
+      <div class="title-and-rating">
+        <div *ngFor="let position of getStarPositions(review.personalRating)">
+          <svg
+            class="star"
+            [style.right.px]="position"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.54 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"
+            />
+          </svg>
+        </div>
+        <h3 class="movie-headline">
+          {{ review.movie.Title }}
+          <small>{{ review.movie.Year }}</small>
+        </h3>
+        <small class="your-review">Your Review:</small>
+        <section class="box">
+          <h2 class="review-title">
+            {{ review.reviewTitle }}
+          </h2>
+          <p>"{{ review.reviewText }}"</p>
+          <small>{{ review.personalRating }} Stars</small>
+        </section>
+      </div>
+    </div>
   </div>
-</section>
+</div>
