@@ -199,13 +199,25 @@ button.delete-set-button {
 .fade-out {
   animation: fadeOut 0.5s forwards;
 }
-
 @keyframes fadeOut {
   from {
     opacity: 1;
+    filter: blur(0px);
   }
   to {
     opacity: 0;
+    filter: blur(10px);
+  }
+}
+.fade-in {
+  animation: fadeIn 0.5s forwards;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
