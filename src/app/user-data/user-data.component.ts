@@ -2,11 +2,10 @@ import { Firestore, collection, collectionData, addDoc, CollectionReference, Doc
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { Observable, map } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Auth, UserProfile, user } from '@angular/fire/auth';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ViewChild, ElementRef } from '@angular/core';
-
 
 import { Movie, MovieSearchResult } from '../models/models';
 
@@ -19,7 +18,7 @@ import { Movie, MovieSearchResult } from '../models/models';
 })
 export class UserDataComponent implements OnInit {
   @ViewChild('searchResults') searchResults!: ElementRef;
-  // @ViewChild('searchResults', { read: ElementRef, static: false }) searchResults!: ElementRef;
+  // @ViewChild('searchResults', { read: ElementRef, static: false }) searchResults!: ElementRef; // what is all that extra stuff
   private firestore: Firestore = inject(Firestore); // inject Cloud Firestore
   users$: Observable<UserProfile[]>;
   moviesCollection!: CollectionReference;
@@ -91,6 +90,7 @@ export class UserDataComponent implements OnInit {
   omdbidValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const value = control.value;
+      // Make sure it's formed like an IMDB ID like "tt1234567"
       const valid = /^tt\d{6,10}$/.test(value);
       return valid ? null : { invalidOmdbid: true };
     };
@@ -158,7 +158,7 @@ export class UserDataComponent implements OnInit {
           this.message = `⚠️ ${response.Error}`;
           return;
         } else {
-          // success results (response was "true")
+          // success results (response.Response was "True")
           this.movieSearchResults = response.Search;
           setTimeout(() => {
             this.searchResults.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -183,7 +183,7 @@ export class UserDataComponent implements OnInit {
       this.message = `✅ Added "${movie.Title}" to your list`;
     }
     ).catch((error) => {
-      console.error('Error adding document: ', error);
+      console.error('Error adding movie document: ', error);
     });
   }
 

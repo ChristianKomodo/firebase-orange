@@ -30,3 +30,11 @@ export interface MovieSearchResult {
 	Search: Array<Movie>;
 	totalResults: string;
 }
+
+export interface Review {
+	id: string;
+	movie: Movie;
+	reviewTitle: string;
+	reviewText: string;
+	personalRating: number;
+}
