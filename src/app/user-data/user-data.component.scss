@@ -89,8 +89,7 @@ button.search-button {
 }
 
 button.movie-button {
-  // Initially hidden, but shown on parent's hover
-  opacity: 0;
+  opacity: 0; // Initially hidden, but shown on parent's hover
   transform: scale(0.75);
   position: absolute;
   bottom: 0;
@@ -104,10 +103,9 @@ button.movie-button {
 }
 
 .movie-container {
-  outline: 1px solid orange;
   position: relative;
   display: inline-block;
-  padding-right: 26px;
+  padding-right: 32px;
   margin-bottom: 36px;
 
   // Display buttons only during their paren't hover state

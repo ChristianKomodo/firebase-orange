@@ -196,6 +196,19 @@ button.delete-set-button {
   border: 1px solid #555;
 }
 
+.fade-out {
+  animation: fadeOut 0.5s forwards;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 /* Layout Helper Classes */
 
 /* "mb-0-5" is short for "margin-bottom: 0.5rem" */

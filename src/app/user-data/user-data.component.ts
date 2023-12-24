@@ -34,6 +34,7 @@ export class UserDataComponent implements OnInit {
   movieDetailsResults: Movie[] = [];
   message = '';
   modalOpen = false;
+  movieToRemove: (string | null) = null;
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     // get a reference to the user-profile collection
@@ -192,11 +193,14 @@ export class UserDataComponent implements OnInit {
       if (docSnap.exists()) {
         console.log('Document data:', docSnap.data());
         // delete the document
+        this.movieToRemove = movie.imdbID;
         setTimeout(() => {
+          // this.movieSearchResults = this.movieSearchResults.filter(m => m !== movie);
+          this.movieToRemove = null;
           this.message = `✅ Removed "${movie.Title}" from your list`;
-          this.someMovies = this.someMovies.filter(item => item.id !== movie.id);
+          // this.someMovies = this.someMovies.filter(item => item.id !== movie.id);
           deleteDoc(movieDoc);
-        }, 2000);
+        }, 500);
       } else {
         // doc.data() will be undefined in this case
         console.log('No such document to remove!');

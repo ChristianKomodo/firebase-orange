@@ -13,7 +13,12 @@
     <p>You have no movies saved to your Favorites</p>
   </ng-template>
 
-  <div class="movie-container" *ngFor="let movie of someMovies">
+  <div
+    class="movie-container"
+    *ngFor="let movie of someMovies"
+    [class.fade-out]="movie.imdbID === movieToRemove"
+  >
+    <p></p>
     <div class="movie-title">{{ movie.Title }}</div>
     <div class="movie-year">{{ movie.Year }}</div>
     <div
@@ -53,10 +58,8 @@
     <!-- <p class="message" [@fadeInOut] *ngIf="message">{{ message }}</p> -->
     <p class="message">{{ message }}</p>
   </div>
-</section>
 
-<section class="box" *ngIf="movieSearchResults.length">
-  <h2 #searchResults>Search Results</h2>
+  <h2 *ngIf="movieSearchResults.length" #searchResults>Search Results</h2>
 
   <ng-container>
     <div class="movie-container" *ngFor="let movie of movieSearchResults">
