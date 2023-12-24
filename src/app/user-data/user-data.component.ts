@@ -26,13 +26,14 @@ export class UserDataComponent implements OnInit {
   user$ = user(this.auth);
   uid!: string;
   someMovies: Movie[] = [];
-  movieForm!: FormGroup;
   movieSearchForm!: FormGroup;
+  reviewsForm!: FormGroup;
   movieSearchReponse$!: Observable<MovieSearchResult>;
   movieSearchResults: Movie[] = [];
   movieDetailsResults: Movie | null = null;
   message = '';
   modalOpen = false;
+  modalMode: ('details' | 'review' | null) = null;
   movieToRemove: (string | null) = null;
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
@@ -76,14 +77,14 @@ export class UserDataComponent implements OnInit {
   }
 
   setUpForms() {
-    this.movieForm = this.fb.group({
-      title: ['', Validators.required],
-      year: ['', Validators.required],
-      imdbid: ['', [Validators.required, this.omdbidValidator()]],
-    });
-
     this.movieSearchForm = this.fb.group({
       title: ['', Validators.required]
+    });
+
+    this.reviewsForm = this.fb.group({
+      reviewTitle: ['', Validators.required],
+      reviewText: ['', Validators.required],
+      personalRating: ['', [Validators.required, Validators.min(0), Validators.max(5)]]
     });
   }
 
@@ -94,17 +95,6 @@ export class UserDataComponent implements OnInit {
       const valid = /^tt\d{6,10}$/.test(value);
       return valid ? null : { invalidOmdbid: true };
     };
-  }
-
-  addMovie(): void {
-    const movie = this.movieForm.value;
-    console.log('movie form values:', this.movieForm.value);
-    if (!movie.Title || !movie.Year || !movie.imdbID) {
-      console.log('missing movie data');
-      return
-    }
-    console.log('adding movie', movie);
-    addDoc(collection(this.firestore, 'users', this.uid, 'movies'), movie);
   }
 
   // get movie search results from the OMDB API
@@ -133,6 +123,7 @@ export class UserDataComponent implements OnInit {
         // proccess results
         this.movieDetailsResults = response;
         console.log('movieDetailsResults HERE:', this.movieDetailsResults);
+        this.modalMode = 'details';
         this.modalOpen = true;
       },
       error: error => {
@@ -169,6 +160,34 @@ export class UserDataComponent implements OnInit {
         console.error('Error occurred:', error);
         this.message = `⚠️ ${error}`;
       }
+    });
+  }
+
+  onOpenReviewModal(): void {
+    this.modalMode = 'review';
+  }
+
+  onAddReview(): void {
+    // console.log('onAddReview form fields:', this.reviewsForm.value);
+    const review = {
+      movie: this.movieDetailsResults,
+      reviewTitle: this.reviewsForm.get('reviewTitle')?.value,
+      reviewText: this.reviewsForm.get('reviewText')?.value,
+      personalRating: this.reviewsForm.get('personalRating')?.value,
+    };
+    console.log('review about to be saved is', review);
+    if (!review.movie || !review.reviewTitle || !review.reviewText || !review.personalRating) {
+      console.log('missing review data');
+      return;
+    }
+    addDoc(collection(this.firestore, 'users', this.uid, 'reviews'), review).then((docRef: DocumentReference) => {
+      console.log('Review document written with ID: ', docRef.id);
+      this.reviewsForm.reset;
+      this.onModalClose();
+      this.modalMode = null;
+    }
+    ).catch((error) => {
+      console.error('Error adding review document: ', error);
     });
   }
 
@@ -212,6 +231,7 @@ export class UserDataComponent implements OnInit {
   }
 
   onModalClose(): void {
+    this.modalMode = null;
     this.modalOpen = false;
   }
 }

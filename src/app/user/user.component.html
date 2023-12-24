@@ -1,11 +1,14 @@
 <div class="user-tools">
-  <ng-container *ngIf="user$ | async else nouser">
-    <button class="nav-label">
+  <ng-container *ngIf="user$ | async; else nouser">
+    <!-- If you want to display the user's email in the nav -->
+    <!-- <button class="nav-label">
       Welcome: {{ (user$ | async)?.email }}
-    </button>
+    </button> -->
     <button class="nav-button" (click)="logOut()">Log Out</button>
   </ng-container>
   <ng-template #nouser>
-    <button class="nav-button" (click)="navigateTo('user-form')">Log In / Sign Up</button>
+    <button class="nav-button" (click)="navigateTo('user-form')">
+      Log In / Sign Up
+    </button>
   </ng-template>
 </div>

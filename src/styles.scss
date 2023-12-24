@@ -145,13 +145,21 @@ strong {
 .field {
   margin-bottom: 1rem;
 
-  input {
+  input,
+  textarea {
     width: 200px;
     padding: 6px;
     border-radius: 4px;
     background: #ccc;
     border: 1px solid #ccc;
     color: #000 !important;
+
+    &.details-field {
+      width: 500px;
+    }
+    &.number-field {
+      width: 75px;
+    }
   }
 }
 
@@ -167,6 +175,7 @@ label {
 }
 
 button {
+  white-space: nowrap;
   cursor: pointer;
   padding: 0.5rem 1rem 0.5rem;
   background-color: #4f4f4f;
@@ -178,6 +187,8 @@ button {
   &.nav-button {
     padding: 1rem 2rem;
   }
+  // nav-label is when you want to display something like
+  // user's email address up in the nav
   &.nav-label {
     padding: 1rem 2rem;
     cursor: unset;
@@ -215,6 +226,7 @@ button.delete-set-button {
 }
 .fade-in {
   animation: fadeIn 0.5s forwards;
+  animation-delay: 0.5s;
 }
 @keyframes fadeIn {
   from {

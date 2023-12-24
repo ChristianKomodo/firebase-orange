@@ -8,52 +8,140 @@
     >
       Close
     </button>
-    <h2 class="movie-headline">
-      {{ movieDetailsResults.Title }}
-      <small>{{ movieDetailsResults.Year }}</small>
-    </h2>
-    <img
-      class="poster-large"
-      [src]="movieDetailsResults.Poster"
-      alt="Image of {{ movieDetailsResults.Title }} movie poster"
-    />
-    <p class="accent">{{ movieDetailsResults.Genre }}</p>
-    <p *ngIf="movieDetailsResults.Type == 'movie'">
-      Directed by
-      <span class="accent"> {{ movieDetailsResults.Director }}</span>
-    </p>
-    <p class="plot">{{ movieDetailsResults.Plot }}</p>
-    <p>
-      Starring
-      <span class="accent"> {{ movieDetailsResults.Actors }}</span>
-    </p>
-    <div *ngIf="movieDetailsResults.Type == 'series'">
+
+    <!-- Modal - Review -->
+    <ng-container *ngIf="modalMode == 'review'">
+      <h2 class="movie-headline">
+        <span class="text-white">Review for </span>
+        {{ movieDetailsResults.Title }}
+      </h2>
+      <img
+        class="poster-large poster-details"
+        [src]="movieDetailsResults.Poster"
+        alt="Image of {{ movieDetailsResults.Title }} movie poster"
+      />
+      <form [formGroup]="reviewsForm" class="reviews-form fade-in">
+        <div class="field">
+          <label for="review-title">Review Title</label>
+          <input
+            formControlName="reviewTitle"
+            id="review-title"
+            class="details-field"
+            type="text"
+            autofocus
+          />
+        </div>
+        <div class="field">
+          <label for="review-text">My Review</label>
+          <textarea
+            formControlName="reviewText"
+            id="review-text"
+            class="details-field"
+            rows="4"
+            cols="50"
+          ></textarea>
+        </div>
+        <div class="field">
+          <label for="rating">Your Rating (1-5 Stars)</label>
+          <input
+            formControlName="personalRating"
+            id="rating"
+            class="number-field"
+            type="number"
+            min="1"
+            max="5"
+            placeholder="1-5 Stars"
+          />
+        </div>
+        <small
+          class="error"
+          *ngIf="
+            reviewsForm.get('reviewTitle')?.touched &&
+            reviewsForm.get('reviewTitle')?.invalid
+          "
+        >
+          Enter a review title.
+        </small>
+        <small
+          class="error"
+          *ngIf="
+            reviewsForm.get('reviewText')?.touched &&
+            reviewsForm.get('reviewText')?.invalid
+          "
+        >
+          Enter a review. Come on now.
+        </small>
+        <small
+          class="error"
+          *ngIf="
+            reviewsForm.get('personalRating')?.touched &&
+            reviewsForm.get('personalRating')?.invalid
+          "
+        >
+          Enter a rating between 1 and 5.
+        </small>
+        <button
+          class="search-button"
+          (click)="onAddReview()"
+          [disabled]="this.reviewsForm.touched && this.reviewsForm.invalid"
+        >
+          Save Review
+        </button>
+      </form>
+    </ng-container>
+
+    <!-- Modal - Details -->
+    <ng-container *ngIf="modalMode == 'details'">
+      <h2 class="movie-headline">
+        {{ movieDetailsResults.Title }}
+        <small>{{ movieDetailsResults.Year }}</small>
+      </h2>
+      <img
+        class="poster-large"
+        [src]="movieDetailsResults.Poster"
+        alt="Image of {{ movieDetailsResults.Title }} movie poster"
+      />
+      <p class="accent">{{ movieDetailsResults.Genre }}</p>
+      <p *ngIf="movieDetailsResults.Type == 'movie'">
+        Directed by
+        <span class="accent"> {{ movieDetailsResults.Director }}</span>
+      </p>
+      <p class="plot">{{ movieDetailsResults.Plot }}</p>
       <p>
-        Total Seasons:
-        <span class="accent">{{ movieDetailsResults.totalSeasons }}</span>
+        Starring
+        <span class="accent"> {{ movieDetailsResults.Actors }}</span>
       </p>
-      <p *ngIf="movieDetailsResults.Writer != 'N/A'">
-        Written by
-        <span class="accent"> {{ movieDetailsResults.Writer }}</span>
+      <div *ngIf="movieDetailsResults.Type == 'series'">
+        <p>
+          Total Seasons:
+          <span class="accent">{{ movieDetailsResults.totalSeasons }}</span>
+        </p>
+        <p *ngIf="movieDetailsResults.Writer != 'N/A'">
+          Written by
+          <span class="accent"> {{ movieDetailsResults.Writer }}</span>
+        </p>
+      </div>
+      <p class="awards">
+        Awards: <span class="accent"> {{ movieDetailsResults.Awards }}</span>
       </p>
-    </div>
-    <p class="awards">
-      Awards: <span class="accent"> {{ movieDetailsResults.Awards }}</span>
-    </p>
-    <p class="ratings-heading">Ratings:</p>
-    <ul class="ratings">
-      <li *ngFor="let rating of movieDetailsResults.Ratings">
-        &nbsp; &nbsp;{{ rating.Source }}:
-        <span class="accent">{{ rating.Value }}</span>
-      </li>
-    </ul>
-    <button
-      class="modal-button"
-      (click)="onAddMovie(movieDetailsResults)"
-      role="button"
-    >
-      Add Movie to Favorites
-    </button>
+      <p class="ratings-heading">Ratings:</p>
+      <ul class="ratings">
+        <li *ngFor="let rating of movieDetailsResults.Ratings">
+          &nbsp; &nbsp;{{ rating.Source }}:
+          <span class="accent">{{ rating.Value }}</span>
+        </li>
+      </ul>
+      <button
+        class="modal-button"
+        (click)="onAddMovie(movieDetailsResults)"
+        role="button"
+      >
+        Add Movie to Favorites
+      </button>
+      <button class="modal-button" (click)="onOpenReviewModal()" role="button">
+        Add a Review
+      </button>
+    </ng-container>
   </section>
 </ng-container>
 
@@ -81,6 +169,13 @@
     >
       Movie Details
     </button>
+    <!-- <button
+      class="movie-button"
+      (click)="onAddMovieReview(movie.id)"
+      role="button"
+    >
+      Add a Review
+    </button> -->
     <button class="movie-button" (click)="onRemoveMovie(movie)" role="button">
       Remove
     </button>
@@ -113,6 +208,12 @@
     </form>
     <p class="message">{{ message }}</p>
   </div>
+
+  <p class="review-reminder">
+    You can write a <span class="accent">Movie Review</span> from in the Movie
+    Details view! Use the "Movie Details" button from your favorites (above) or
+    search results (below).
+  </p>
 
   <h2 *ngIf="movieSearchResults.length" #searchResults>Search Results</h2>
 

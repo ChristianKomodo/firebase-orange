@@ -21,5 +21,5 @@ export const routes: Routes = [
   // Instead, use this short-hand version:
   { path: 'firestore', component: FirestoreComponent, ...canActivate(redirectUnauthorizedToLogin) },
   { path: 'user-data', component: UserDataComponent, ...canActivate(redirectUnauthorizedToLogin) },
-  { path: 'your-movies', component: YourMoviesComponent, ...canActivate(redirectUnauthorizedToLogin) },
+  { path: 'reviews', component: YourMoviesComponent, ...canActivate(redirectUnauthorizedToLogin) },
 ];

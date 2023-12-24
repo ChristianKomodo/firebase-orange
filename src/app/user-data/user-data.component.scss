@@ -61,6 +61,11 @@ ul.movie-list {
   }
 }
 
+.reviews-form {
+  // uses .fade-in @Keyframe animation and animates opacity up
+  opacity: 0;
+}
+
 button.movie-button,
 button.search-button {
   transition: opacity 0.5s ease-in-out;
@@ -99,7 +104,7 @@ button.modal-button {
   }
 
   &:last-of-type {
-    right: 108px;
+    margin-left: 24px;
   }
 
   &.top-right {
@@ -248,6 +253,20 @@ $boxWidth: 100px;
 .poster-large {
   float: left;
   margin-right: 18px;
+
+  &.poster-details {
+    animation: poster-details 0.5s ease-in-out;
+    width: 200px;
+  }
+}
+// animate from 300px to 200px
+@keyframes poster-details {
+  from {
+    width: 300px;
+  }
+  to {
+    width: 200px;
+  }
 }
 
 .plot {
@@ -262,4 +281,8 @@ ul.ratings {
   li {
     list-style: none;
   }
+}
+
+.review-reminder {
+  margin-top: 0;
 }
