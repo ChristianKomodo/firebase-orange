@@ -60,6 +60,10 @@ a {
   color: #6fb8ff;
 }
 
+.accent {
+  color: $accent-color;
+}
+
 section.box {
   padding: 1rem 2rem;
   &:not(.no-bkd) {

@@ -31,7 +31,7 @@ export class UserDataComponent implements OnInit {
   movieSearchForm!: FormGroup;
   movieSearchReponse$!: Observable<MovieSearchResult>;
   movieSearchResults: Movie[] = [];
-  movieDetailsResults: Movie[] = [];
+  movieDetailsResults: Movie | null = null;
   message = '';
   modalOpen = false;
   movieToRemove: (string | null) = null;
@@ -131,7 +131,8 @@ export class UserDataComponent implements OnInit {
           return;
         }
         // proccess results
-        this.movieDetailsResults = response.Search;
+        this.movieDetailsResults = response;
+        console.log('movieDetailsResults HERE:', this.movieDetailsResults);
         this.modalOpen = true;
       },
       error: error => {

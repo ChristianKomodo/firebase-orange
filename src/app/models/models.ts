@@ -14,6 +14,15 @@ export interface Movie {
 	Type: string;
 	Year: number;
 	imdbID: string;
+	// Below are properties from a call to Details
+	Director?: string;
+	Plot?: string;
+	Actors?: string;
+	Awards?: string;
+	Ratings: { Source: string; Value: string; }[];
+	totalSeasons?: string;
+	Genre?: string;
+	Writer?: string;
 }
 
 export interface MovieSearchResult {
