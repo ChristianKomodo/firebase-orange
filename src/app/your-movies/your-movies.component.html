@@ -4,6 +4,7 @@
   <a [routerLink]="['/user-data']">Movie Search</a> and then select "Add a
   Review".
 </p>
+<br />
 
 <div class="speech-bubble review-bubble" *ngFor="let review of allReviews">
   <div class="row row-left">
@@ -14,17 +15,42 @@
     />
     <div class="row full-width-row">
       <div class="title-and-rating">
-        <div *ngFor="let position of getStarPositions(review.personalRating)">
-          <svg
-            class="star"
-            [style.right.px]="position"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-          >
-            <path
-              d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.54 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"
-            />
-          </svg>
+        <div class="stars-row">
+          <small class="your-rating-label">Your Rating:</small>
+          <div class="stars-yes">
+            <div
+              *ngFor="
+                let position of getStarPositions(5 - review.personalRating)
+              "
+            >
+              <svg
+                class="star grey"
+                [style.right.px]="position"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.54 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"
+                />
+              </svg>
+            </div>
+          </div>
+          <div class="stars-no">
+            <div
+              *ngFor="let position of getStarPositions(review.personalRating)"
+            >
+              <svg
+                class="star"
+                [style.right.px]="position"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.54 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"
+                />
+              </svg>
+            </div>
+          </div>
         </div>
         <h3 class="movie-headline">
           {{ review.movie.Title }}

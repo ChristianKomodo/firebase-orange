@@ -249,13 +249,34 @@ button.delete-set-button {
   }
 }
 
-.star {
+.your-rating-label {
   position: absolute;
-  top: 36px;
-  width: 30px;
-  height: 30px;
-  fill: $accent-color;
-  opacity: 0.8;
+  top: 0;
+}
+.stars-row {
+  position: absolute;
+  right: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+
+  .stars-yes,
+  .stars-no {
+    display: flex;
+    padding-top: 18px;
+  }
+  .star {
+    // position: absolute;
+    top: 0;
+    width: 30px;
+    height: 30px;
+    fill: $accent-color;
+    opacity: 0.9;
+
+    &.grey {
+      fill: #ccc;
+    }
+  }
 }
 
 /* Layout Helper Classes */
