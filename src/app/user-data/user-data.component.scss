@@ -2,7 +2,6 @@
 // Sass Variables
 $primary-color: #ccc;
 $accent-color: #ebbc6d;
-$button-color: #ff4742;
 
 .form-box {
   padding: 0 16px;
@@ -64,63 +63,6 @@ ul.movie-list {
 .reviews-form {
   // uses .fade-in @Keyframe animation and animates opacity up
   opacity: 0;
-}
-
-button.movie-button,
-button.search-button {
-  transition: opacity 0.5s ease-in-out;
-  border: none;
-  background: linear-gradient(
-    120deg,
-    darkmagenta,
-    $button-color,
-    $accent-color
-  );
-  background-size: 200% 100%;
-  background-position: 100% 0;
-  transition: background-position 0.5s;
-  color: #fff;
-  border-radius: 4px;
-  transition: all 0.5s;
-
-  &:hover {
-    border: none;
-    background-position: 0 0;
-  }
-
-  &:first-of-type {
-    bottom: 36px;
-  }
-}
-
-button.modal-button {
-  margin-top: 16px;
-  color: #fff;
-  background-color: $button-color;
-  border: none;
-
-  &:hover {
-    background-color: $accent-color;
-  }
-
-  &:last-of-type {
-    margin-left: 24px;
-  }
-
-  &.top-right {
-    margin: 0px;
-    top: 22px;
-    right: 22px;
-    position: absolute;
-  }
-}
-
-button.movie-button {
-  opacity: 0; // Initially hidden, but shown on parent's hover
-  transform: scale(0.75);
-  position: absolute;
-  bottom: 0;
-  z-index: 5;
 }
 
 .movie-icon {

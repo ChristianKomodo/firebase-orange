@@ -1,92 +1,112 @@
 <!-- <h1>Authentication</h1> -->
 
-<div class="container">
-  <div *ngIf="whichForm == 'login'" class="form-container">
-    <h2>Login Form</h2>
-    <p>
-      Need to make an account?
-      <button (click)="whichForm = 'signup'">Sign Up</button>
-    </p>
-    <form [formGroup]="authForm" (ngSubmit)="onSubmitLogin()">
-      <label for="email">Email Address:</label>
-      <input
-        type="email"
-        id="email"
-        formControlName="email"
-        autocomplete="email"
-      />
-      <br />
-      <small
-        class="error"
-        *ngIf="authForm.get('email')?.touched && authForm.get('email')?.invalid"
-      >
-        A user name is required
-      </small>
-      <br />
-      <label for="password">Password:</label>
-      <input
-        type="password"
-        id="password"
-        formControlName="password"
-        autocomplete="current-password"
-      />
-      <br />
-      <small
-        class="error"
-        *ngIf="
-          authForm.get('password')?.touched && authForm.get('password')?.invalid
-        "
-      >
-        A password is required
-      </small>
-      <br />
-      <button type="submit" [disabled]="authForm.invalid">Log In</button>
-    </form>
-  </div>
+<div class="authentication container">
+  <section class="box" *ngIf="whichForm == 'login'">
+    <div class="form-container">
+      <div class="row">
+        <form [formGroup]="authForm" (ngSubmit)="onSubmitLogin()">
+          <h1>Login Form</h1>
+          <div class="field">
+            <label for="email">Email Address:</label>
+            <input
+              type="email"
+              id="email"
+              formControlName="email"
+              autocomplete="email"
+            />
+            <small
+              class="error"
+              *ngIf="
+                authForm.get('email')?.touched && authForm.get('email')?.invalid
+              "
+            >
+              A user name is required
+            </small>
+          </div>
+          <div class="field">
+            <label for="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              formControlName="password"
+              autocomplete="current-password"
+            />
+            <small
+              class="error"
+              *ngIf="
+                authForm.get('password')?.touched &&
+                authForm.get('password')?.invalid
+              "
+            >
+              A password is required
+            </small>
+          </div>
+          <button class="mt-1" type="submit" [disabled]="authForm.invalid">
+            Log In
+          </button>
+        </form>
+        <div class="column already">
+          <h3>Need to make an account? &nbsp; &nbsp;</h3>
+          <button class="mt-1" (click)="whichForm = 'signup'">
+            Sign Up Instead
+          </button>
+        </div>
+      </div>
+    </div>
+    <br />
+  </section>
 
-  <div *ngIf="whichForm == 'signup'" class="form-container">
-    <h2>Sign Up Form</h2>
-    <p>
-      Already have an account?
-      <button (click)="whichForm = 'login'">Log In</button>
-    </p>
-    <form [formGroup]="signupForm" (ngSubmit)="onSubmitSignup()">
-      <label for="email">Email Address:</label>
-      <input
-        type="email"
-        id="email"
-        formControlName="email"
-        autocomplete="email"
-      />
-      <br />
-      <small
-        class="error"
-        *ngIf="
-          signupForm.get('email')?.touched && signupForm.get('email')?.invalid
-        "
-      >
-        A user name is required
-      </small>
-      <br />
-      <label for="password">Password:</label>
-      <input
-        type="password"
-        id="password"
-        formControlName="password"
-        autocomplete="current-password"
-      />
-      <br />
-      <small
-        class="error"
-        *ngIf="
-          signupForm.get('password')?.touched &&
-          signupForm.get('password')?.invalid
-        "
-      >
-        A user name is required
-      </small>
-      <br />
-      <button type="submit" [disabled]="signupForm.invalid">Sign Up</button>
-    </form>
-  </div>
+  <section *ngIf="whichForm == 'signup'" class="box">
+    <div class="form-container">
+      <div class="row">
+        <form [formGroup]="signupForm" (ngSubmit)="onSubmitSignup()">
+          <h1>Sign Up Form</h1>
+          <div class="field">
+            <label for="email">Email Address:</label>
+            <input
+              type="email"
+              id="email"
+              formControlName="email"
+              autocomplete="email"
+            />
+            <small
+              class="error"
+              *ngIf="
+                signupForm.get('email')?.touched &&
+                signupForm.get('email')?.invalid
+              "
+            >
+              A user name is required
+            </small>
+          </div>
+          <div class="field">
+            <label for="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              formControlName="password"
+              autocomplete="current-password"
+            />
+            <small
+              class="error"
+              *ngIf="
+                signupForm.get('password')?.touched &&
+                signupForm.get('password')?.invalid
+              "
+            >
+              A user name is required
+            </small>
+          </div>
+          <button class="mt-1" type="submit" [disabled]="signupForm.invalid">
+            Sign Up
+          </button>
+        </form>
+        <div class="column already">
+          <h3>Already have an account?</h3>
+          <button (click)="whichForm = 'login'">Log In</button>
+        </div>
+      </div>
+    </div>
+    <br />
+  </section>
 </div>

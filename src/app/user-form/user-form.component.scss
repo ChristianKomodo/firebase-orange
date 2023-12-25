@@ -1,1 +1,16 @@
+.authentication {
+  input {
+    margin-left: 0px;
+  }
 
+  .already {
+    margin: 32px 0px;
+    background-color: #444;
+    padding: 24px 36px;
+    height: fit-content;
+
+    h3 {
+      margin: 0 0 16px 0;
+    }
+  }
+}

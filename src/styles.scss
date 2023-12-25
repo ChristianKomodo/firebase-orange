@@ -1,6 +1,7 @@
 // Sass Variables
 $primary-color: #ccc;
 $accent-color: #ebbc6d;
+$secondary-color: #ff4742;
 
 * {
   font-family: "Lato", sans-serif;
@@ -131,8 +132,12 @@ strong {
   margin-bottom: -20px;
 }
 
-.form-container input {
-  margin-left: 1rem;
+.form-container {
+  position: relative;
+
+  input {
+    margin-left: 1rem;
+  }
 }
 
 .error {
@@ -178,14 +183,19 @@ button {
   white-space: nowrap;
   cursor: pointer;
   padding: 0.5rem 1rem 0.5rem;
-  background-color: #4f4f4f;
-  color: #999;
-  border: 1px solid #555;
   transition: all 0.2s;
   display: inline-block;
 
   &.nav-button {
+    background-color: #4f4f4f;
+    color: #999;
+    border: 1px solid #555;
     padding: 1rem 2rem;
+
+    &:hover {
+      color: #eee;
+      background-color: #777;
+    }
   }
   // nav-label is when you want to display something like
   // user's email address up in the nav
@@ -196,19 +206,72 @@ button {
     border: none;
   }
 }
-button:hover:not([disabled]):not(.nav-label) {
-  background-color: #777;
+
+button:not(.nav-button),
+button.movie-button,
+button.search-button {
+  transition: opacity 0.5s ease-in-out;
+  border: none;
+  background: linear-gradient(
+    120deg,
+    darkmagenta,
+    $secondary-color,
+    $accent-color
+  );
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  transition: background-position 0.5s;
   color: #fff;
-  border: 1px solid #aaa;
+  border-radius: 4px;
+  transition: all 0.5s;
+
+  &:hover {
+    border: none;
+    background-position: 0 0;
+  }
 }
-button:disabled {
-  opacity: 0.5;
-  cursor: default;
-}
-button.delete-set-button {
-  color: $primary-color;
-  background-color: #3c3c3c;
+
+button.nav-button {
+  background-color: #4f4f4f;
+  color: #999;
   border: 1px solid #555;
+  padding: 1rem 2rem;
+}
+
+button.movie-button {
+  &:first-of-type {
+    bottom: 36px;
+  }
+}
+
+button.modal-button {
+  margin-top: 16px;
+  color: #fff;
+  background-color: $secondary-color;
+  border: none;
+
+  &:hover {
+    background-color: $accent-color;
+  }
+
+  &:last-of-type {
+    margin-left: 24px;
+  }
+
+  &.top-right {
+    margin: 0px;
+    top: 22px;
+    right: 22px;
+    position: absolute;
+  }
+}
+
+button.movie-button {
+  opacity: 0; // Initially hidden, but shown on parent's hover
+  transform: scale(0.75);
+  position: absolute;
+  bottom: 0;
+  z-index: 5;
 }
 
 .fade-out {
@@ -287,6 +350,9 @@ button.delete-set-button {
 }
 .mb-1 {
   margin-bottom: 1rem;
+}
+.mt-1 {
+  margin-top: 1rem;
 }
 .mt-0-5 {
   margin-top: 0.5rem;
