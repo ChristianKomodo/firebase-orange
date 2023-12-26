@@ -8,7 +8,7 @@ $secondary-color: #ff4742;
 }
 
 body {
-  background: #333 !important;
+  background: #333;
   margin: 0;
 }
 
@@ -192,7 +192,7 @@ button {
 
   &.nav-button {
     background-color: #4f4f4f;
-    color: #999;
+    color: #ccc;
     border: 1px solid #555;
     padding: 1rem 2rem;
 
@@ -343,6 +343,79 @@ button.movie-button {
     &.grey {
       fill: #ccc;
     }
+  }
+}
+
+.background {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: url("/assets/wp2094022-the-great-gatsby-wallpapers.jpg");
+    background-position: bottom;
+    background-size: cover;
+    background-repeat: no-repeat;
+    filter: grayscale(0.3) opacity(0.3);
+    z-index: -1;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(55, 55, 55, 1) 0%,
+      rgba(55, 55, 55, 0) 90%,
+      rgba(55, 55, 55, 1) 100%
+    );
+    z-index: 0;
+  }
+}
+
+.backgroundAll {
+  height: 80%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+
+  background-image: url("/assets/wp2094022-the-great-gatsby-wallpapers.jpg");
+  background-position: bottom;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(55, 55, 55, 1) 0%,
+      rgba(55, 55, 55, 0) 90%,
+      rgba(55, 55, 55, 1) 100%
+    );
+    z-index: -1;
   }
 }
 
