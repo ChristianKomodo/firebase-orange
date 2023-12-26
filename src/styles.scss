@@ -73,7 +73,8 @@ section.box {
   padding: 1rem 2rem;
   display: block;
   border: 1px solid #666;
-  background: #3b3b3b;
+  // background: #3b3b3b;
+  background-color: rgba($color: #3b3b3b, $alpha: 0.7);
   margin-bottom: 2rem;
 }
 
