@@ -65,7 +65,7 @@ export class UserService {
         // Successfully signed in
         console.log("user service signIn() userCredential is", userCredential);
         // Navigate Home after login
-        this.navigationService.navigateTo('home');
+        this.navigationService.navigateTo('user-data');
       })
       .catch((error) => {
         // Failed to sign in
