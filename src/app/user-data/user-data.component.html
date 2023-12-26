@@ -147,15 +147,19 @@
 </ng-container>
 
 <section>
-  <h1 *ngIf="someMovies.length; else noFavorites">Movie Watch-List</h1>
+  <h1>Movie Watch-List</h1>
+  <ng-template #noFavorites>
+    <div class="nothing-saved">
+      <p *ngIf="user$ | async">You have no movies saved to your Watch-List</p>
+      <p *ngIf="!(user$ | async)">
+        Create an account to add movies to your Watch-List
+      </p>
+    </div>
+  </ng-template>
 
   <!-- Scrolling watch list -->
-  <div class="scrolling-watch-list">
+  <div *ngIf="someMovies.length; else noFavorites" class="scrolling-watch-list">
     <div class="inside-watch-list">
-      <ng-template #noFavorites>
-        <p>You have no movies saved to your Watch-List</p>
-      </ng-template>
-
       <div
         class="movie-container"
         *ngFor="let movie of someMovies"
@@ -193,7 +197,7 @@
   </div>
 </section>
 
-<section class="box form-box">
+<section class="box search-box">
   <div class="search-container">
     <h1>IMDB Movie Search</h1>
     <form [formGroup]="movieSearchForm" class="movie-form">
@@ -220,12 +224,6 @@
     <p class="message">{{ message }}</p>
   </div>
 
-  <p class="review-reminder">
-    You can write a <span class="accent">Movie Review</span> from in the Movie
-    Details view! Use the "Movie Details" button from your favorites (above) or
-    search results (below).
-  </p>
-
   <h2 *ngIf="movieSearchResults.length" #searchResults>Search Results</h2>
 
   <ng-container>
@@ -246,9 +244,13 @@
       >
         Movie Details
       </button>
-      <button class="movie-button" (click)="onAddMovie(movie)" role="button">
-        Add Movie
-      </button>
+      <div *ngIf="user$ | async">
+        <button class="movie-button" (click)="onAddMovie(movie)" role="button">
+          Add Movie
+        </button>
+      </div>
     </div>
   </ng-container>
 </section>
+
+<app-home></app-home>

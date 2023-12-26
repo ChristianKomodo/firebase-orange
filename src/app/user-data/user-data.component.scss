@@ -3,29 +3,29 @@
 $primary-color: #ccc;
 $accent-color: #ebbc6d;
 
+.nothing-saved {
+  margin: -18px 0 32px;
+}
+
 .scrolling-watch-list {
   box-sizing: border-box;
   overflow-x: scroll;
-  // border: 1px solid orange;
   height: 310px;
   margin-top: -18px;
 
   .inside-watch-list {
     display: flex;
     flex-direction: row;
-    // border: 1px solid red;
-    // width: 100%;
-    // height: 100%;
-    // padding: 20px;
   }
-  // height: 100%;
-  // padding: 20px;
 }
 
 .search-container {
   display: flex;
   align-items: center;
-  // justify-content: space-between;
+
+  h1 {
+    margin: 8px 0px;
+  }
 
   .movie-form {
     display: flex;
@@ -78,7 +78,6 @@ $accent-color: #ebbc6d;
   align-self: self-end;
   display: inline-block;
   padding-right: 26px;
-  // margin-bottom: 36px;
 
   // Display buttons only during their paren't hover state
   &:hover .movie-button {
@@ -218,8 +217,4 @@ ul.ratings {
   li {
     list-style: none;
   }
-}
-
-.review-reminder {
-  margin-top: 0;
 }

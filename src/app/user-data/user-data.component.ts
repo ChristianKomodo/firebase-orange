@@ -8,11 +8,12 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ViewChild, ElementRef } from '@angular/core';
 
 import { Movie, MovieSearchResult } from '../models/models';
+import { HomeComponent } from '../home/home.component';
 
 @Component({
   selector: 'app-user-data',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule, HomeComponent],
   templateUrl: './user-data.component.html',
   styleUrls: ['./user-data.component.scss'],
 })

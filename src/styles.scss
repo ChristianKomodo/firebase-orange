@@ -71,15 +71,10 @@ a {
 
 section.box {
   padding: 1rem 2rem;
-  &:not(.no-bkd) {
-    display: block;
-    border: 1px solid #666;
-    background: #3b3b3b;
-    margin-bottom: 2rem;
-  }
-  &:first-of-type {
-    padding-top: 0;
-  }
+  display: block;
+  border: 1px solid #666;
+  background: #3b3b3b;
+  margin-bottom: 2rem;
 }
 
 strong {

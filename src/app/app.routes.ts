@@ -20,6 +20,7 @@ export const routes: Routes = [
   // The below long-hand version doesn't work because it can't find [AngularFireAuthGuard] and it's not an import
   // { path: 'login', component: FirestoreComponent, canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin } },
   // Instead, use this short-hand version:
-  { path: 'user-data', component: UserDataComponent, ...canActivate(redirectUnauthorizedToLogin) },
+  { path: 'user-data', component: UserDataComponent },
+  // { path: 'user-data', component: UserDataComponent, ...canActivate(redirectUnauthorizedToLogin) },
   { path: 'reviews', component: YourMoviesComponent, ...canActivate(redirectUnauthorizedToLogin) },
 ];
