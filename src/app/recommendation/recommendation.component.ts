@@ -1,7 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Observable, map } from 'rxjs';
-import { CollectionReference, DocumentData, DocumentReference, Firestore, addDoc, collection, collectionData } from '@angular/fire/firestore';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Observable, map, switchMap } from 'rxjs';
+import { CollectionReference, DocumentReference, Firestore, addDoc, collection, collectionData } from '@angular/fire/firestore';
 import { Auth, user } from '@angular/fire/auth';
 
 interface Recommendation {
@@ -12,7 +13,7 @@ interface Recommendation {
 @Component({
   selector: 'app-recommendation',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, HttpClientModule],
   templateUrl: './recommendation.component.html',
   styleUrls: ['./recommendation.component.scss']
 })
@@ -24,9 +25,9 @@ export class RecommendationComponent implements OnInit {
   recommendationCount!: number;
   @ViewChild('title') title!: ElementRef;
   @ViewChild('text') text!: ElementRef;
-  lockdown: boolean = false;
+  lockdown: boolean = true;
 
-  constructor(private firestore: Firestore) { }
+  constructor(private http: HttpClient, private firestore: Firestore) { }
 
   ngOnInit() {
     // get a reference to the recommendation collection
@@ -41,17 +42,29 @@ export class RecommendationComponent implements OnInit {
   lockdownCheck() {
     // Checking to see if someone is spamming the site
     // count the number of items in the "recommendation" collection
-    // if there are more than 10, then lockdown the site
+    // if there are more than 10, then lock-down the site
     // if there are less than 10, then add a new item
     this.recommendation$.subscribe((recommendations: Recommendation[]) => {
       console.log('recommendations', recommendations);
       this.recommendationCount = recommendations.length;
-      if (recommendations.length > 10) {
+      if (recommendations.length > 50) {
         this.lockdown = true;
       } else {
         this.lockdown = false;
       }
     });
+  }
+
+  checkForProfanity(text: string): Observable<any> {
+    const url = 'https://api.api-ninjas.com/v1/profanityfilter?text=' + text;
+    const headers = { 'X-Api-Key': 'tUpeFlLpeuDeggYnt0fZGQ==nXuLoLqSYw6JWHTK' };
+    return this.http.get(url, { headers });
+    // Sample response:
+    // {
+    //   "original": "damn it!",
+    //   "censored": "**** it!",
+    //   "has_profanity": true
+    // }
   }
 
   addRecommendation() {
@@ -60,19 +73,42 @@ export class RecommendationComponent implements OnInit {
       console.log('The site is in lockdown mode from too many submissions.');
       return;
     }
-    const recommendation = {
-      title: this.title.nativeElement.value,
-      text: this.text.nativeElement.value
-    };
-    console.log('recommendation', recommendation);
-    if (recommendation.title === '' || recommendation.text === '') {
+    if (this.title.nativeElement.value === '' || this.text.nativeElement.value === '') {
       console.log('Please enter a title and text');
       return;
     }
-    addDoc(this.recommendationCollection, recommendation).then((documentReference: DocumentReference) => {
-      // the documentReference provides access to the newly created document
-      console.log('Recommendation recorded. "documentReference" is:', documentReference);
+    let recommendation = {
+      title_raw: this.title.nativeElement.value,
+      text_raw: this.text.nativeElement.value,
+      title: '',
+      text: '',
+    };
+    console.log('recommendation', recommendation);
+
+    this.checkForProfanity(recommendation.title_raw).pipe(
+      map((result: any) => {
+        recommendation.title = result.censored;
+        return recommendation;
+      }),
+      switchMap(() => this.checkForProfanity(recommendation.text_raw)),
+      map((result: any) => {
+        recommendation.text = result.censored;
+        return recommendation;
+      })
+    ).subscribe({
+      next: recommendation => {
+        addDoc(this.recommendationCollection, recommendation).then((documentReference: DocumentReference) => {
+          console.log('Recommendation recorded. "documentReference" is:', documentReference);
+        });
+      },
+      error: error => {
+        console.error('Error: ', error);
+      }
     });
+
+    // addDoc(this.recommendationCollection, recommendation).then((documentReference: DocumentReference) => {
+    //   console.log('Recommendation recorded. "documentReference" is:', documentReference);
+    // });
   }
 }
 
