@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { UserFormComponent } from './user-form/user-form.component';
 import { UserDataComponent } from './user-data/user-data.component';
 import { YourMoviesComponent } from './your-movies/your-movies.component';
+import { RecommendationComponent } from './recommendation/recommendation.component';
 
 // redirects logged in users
 const redirectLoggedInToFirestore = () => redirectLoggedInTo(['home']);
@@ -14,6 +15,7 @@ const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['user-form']);
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
+  { path: 'recommendations', component: RecommendationComponent },
   { path: 'user-form', component: UserFormComponent },
   // The below long-hand version doesn't work because it can't find [AngularFireAuthGuard] and it's not an import
   // { path: 'login', component: FirestoreComponent, canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin } },

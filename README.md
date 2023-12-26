@@ -20,10 +20,15 @@ https://firebase.google.com/docs/reference/js/firestore_
 Working with Lists of Data (Firestore):
 https://firebase.google.com/docs/firestore/quickstart
 
-collectionData explained:
+`collectionData` explained:
 https://github.com/angular/angularfire/blob/master/docs/firestore.md
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.4.
+
+## APIs Used
+
+Profanity Filter:
+https://api-ninjas.com/api/profanityfilter
 
 ## Development server
 

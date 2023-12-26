@@ -8,7 +8,7 @@
   <div *ngFor="let recommendation of (recommendation$ | async)?.slice(0, 3)">
     <div class="speech-bubble">
       <p>
-        About <strong>{{ recommendation.title }}</strong
+        About <strong class="text-primary">{{ recommendation.title }}</strong
         >:
       </p>
       <p>"{{ recommendation.text }}"</p>
@@ -52,13 +52,16 @@
 
 <section *ngIf="lockdown">
   <p>
-    :&#40; The <strong>Add Recommendation</strong> feature is disabled because
-    of too many submissions.
+    :&#40; The <span class="text-primary">Add Recommendation</span> feature is
+    disabled because of too many submissions.
   </p>
 </section>
 
 <section class="box">
-  <h2>Recommendation Data as JSON</h2>
+  <h2>
+    Recommendation Data as JSON
+    <small class="subheading">Only interesting to other developers ;)</small>
+  </h2>
   <p>recommendation$ | async | json</p>
   <p>{{ recommendation$ | async | json }}</p>
 </section>
