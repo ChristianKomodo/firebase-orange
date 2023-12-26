@@ -148,38 +148,48 @@
 
 <section>
   <h1 *ngIf="someMovies.length; else noFavorites">Movie Watch-List</h1>
-  <ng-template #noFavorites>
-    <p>You have no movies saved to your Watch-List</p>
-  </ng-template>
 
-  <div
-    class="movie-container"
-    *ngFor="let movie of someMovies"
-    [class.fade-out]="movie.imdbID === movieToRemove"
-  >
-    <div class="movie-title">{{ movie.Title }}</div>
-    <div class="movie-year">{{ movie.Year }}</div>
-    <div
-      class="movie-box"
-      [style.background-image]="'url(' + movie.Poster + ')'"
-    ></div>
-    <button
-      class="movie-button"
-      (click)="onMovieSearchDetails(movie.imdbID)"
-      role="button"
-    >
-      Movie Details
-    </button>
-    <!-- <button
+  <!-- Scrolling watch list -->
+  <div class="scrolling-watch-list">
+    <div class="inside-watch-list">
+      <ng-template #noFavorites>
+        <p>You have no movies saved to your Watch-List</p>
+      </ng-template>
+
+      <div
+        class="movie-container"
+        *ngFor="let movie of someMovies"
+        [class.fade-out]="movie.imdbID === movieToRemove"
+      >
+        <div class="movie-title">{{ movie.Title }}</div>
+        <div class="movie-year">{{ movie.Year }}</div>
+        <div
+          class="movie-box"
+          [style.background-image]="'url(' + movie.Poster + ')'"
+        ></div>
+        <button
+          class="movie-button"
+          (click)="onMovieSearchDetails(movie.imdbID)"
+          role="button"
+        >
+          Movie Details
+        </button>
+        <!-- <button
       class="movie-button"
       (click)="onAddMovieReview(movie.id)"
       role="button"
     >
       Add a Review
     </button> -->
-    <button class="movie-button" (click)="onRemoveMovie(movie)" role="button">
-      Remove
-    </button>
+        <button
+          class="movie-button"
+          (click)="onRemoveMovie(movie)"
+          role="button"
+        >
+          Remove
+        </button>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -219,7 +229,10 @@
   <h2 *ngIf="movieSearchResults.length" #searchResults>Search Results</h2>
 
   <ng-container>
-    <div class="movie-container" *ngFor="let movie of movieSearchResults">
+    <div
+      class="movie-container in-search"
+      *ngFor="let movie of movieSearchResults"
+    >
       <div class="movie-title">{{ movie.Title }}</div>
       <div class="movie-year">{{ movie.Year }}</div>
       <div

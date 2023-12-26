@@ -3,21 +3,23 @@
 $primary-color: #ccc;
 $accent-color: #ebbc6d;
 
-.form-box {
-  padding: 0 16px;
-}
+.scrolling-watch-list {
+  box-sizing: border-box;
+  overflow-x: scroll;
+  // border: 1px solid orange;
+  height: 310px;
+  margin-top: -18px;
 
-ul.movie-list {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-
-  li {
-    border: 1px solid #ddd;
-    padding: 12px;
-    margin-bottom: 12px;
-    width: fit-content;
+  .inside-watch-list {
+    display: flex;
+    flex-direction: row;
+    // border: 1px solid red;
+    // width: 100%;
+    // height: 100%;
+    // padding: 20px;
   }
+  // height: 100%;
+  // padding: 20px;
 }
 
 .search-container {
@@ -73,13 +75,18 @@ ul.movie-list {
 
 .movie-container {
   position: relative;
+  align-self: self-end;
   display: inline-block;
-  padding-right: 32px;
-  margin-bottom: 36px;
+  padding-right: 26px;
+  // margin-bottom: 36px;
 
   // Display buttons only during their paren't hover state
   &:hover .movie-button {
     opacity: 1;
+  }
+
+  &.in-search {
+    padding: 0 34px 0 0;
   }
 }
 
