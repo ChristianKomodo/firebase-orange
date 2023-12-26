@@ -229,6 +229,15 @@ button.search-button {
     border: none;
     background-position: 0 0;
   }
+
+  &.movie-details {
+    bottom: 32px;
+    left: 0px;
+  }
+}
+
+button.movie-button {
+  left: 4px;
 }
 
 button.nav-button {
@@ -236,12 +245,6 @@ button.nav-button {
   color: #999;
   border: 1px solid #555;
   padding: 1rem 2rem;
-}
-
-button.movie-button {
-  &:first-of-type {
-    bottom: 36px;
-  }
 }
 
 button.modal-button {
