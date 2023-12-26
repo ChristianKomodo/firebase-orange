@@ -8,7 +8,7 @@
   <div *ngFor="let recommendation of (recommendation$ | async)?.slice(0, 3)">
     <div class="speech-bubble">
       <p>
-        About <strong>{{ recommendation.title }}</strong
+        About <strong class="text-primary">{{ recommendation.title }}</strong
         >:
       </p>
       <p>"{{ recommendation.text }}"</p>
