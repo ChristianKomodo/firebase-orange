@@ -105,10 +105,6 @@ export class RecommendationComponent implements OnInit {
         console.error('Error: ', error);
       }
     });
-
-    // addDoc(this.recommendationCollection, recommendation).then((documentReference: DocumentReference) => {
-    //   console.log('Recommendation recorded. "documentReference" is:', documentReference);
-    // });
   }
 }
 

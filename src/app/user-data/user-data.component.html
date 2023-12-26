@@ -1,3 +1,4 @@
+<!-- Modal -->
 <ng-container *ngIf="modalOpen && movieDetailsResults">
   <div class="modal-backdrop" (click)="onModalClose()"></div>
   <section class="modal-box">
@@ -146,9 +147,9 @@
 </ng-container>
 
 <section>
-  <h1 *ngIf="someMovies.length; else noFavorites">Favorite Movies</h1>
+  <h1 *ngIf="someMovies.length; else noFavorites">Movie Watch-List</h1>
   <ng-template #noFavorites>
-    <p>You have no movies saved to your Favorites</p>
+    <p>You have no movies saved to your Watch-List</p>
   </ng-template>
 
   <div
