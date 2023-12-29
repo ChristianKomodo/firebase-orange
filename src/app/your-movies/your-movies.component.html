@@ -19,12 +19,10 @@
           <small class="your-rating-label">Your Rating:</small>
           <div class="stars-yes">
             <div
-              *ngFor="
-                let position of getStarPositions(5 - review.personalRating)
-              "
+              *ngFor="let position of getStarPositions(review.personalRating)"
             >
               <svg
-                class="star grey"
+                class="star"
                 [style.right.px]="position"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -37,10 +35,12 @@
           </div>
           <div class="stars-no">
             <div
-              *ngFor="let position of getStarPositions(review.personalRating)"
+              *ngFor="
+                let position of getStarPositions(5 - review.personalRating)
+              "
             >
               <svg
-                class="star"
+                class="star grey"
                 [style.right.px]="position"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"

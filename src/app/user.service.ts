@@ -1,10 +1,15 @@
 import { Injectable, inject } from '@angular/core';
 import { Auth, User, user, getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from '@angular/fire/auth';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Firestore, collection, collectionData, doc, setDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 import { NavigationService } from './navigation.service';
+
+interface LoginError {
+  value: boolean;
+  message: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +19,8 @@ export class UserService {
   user$ = user(this.auth);
   // userData$: Observable<UserData>;  // ToDo: WHY DOES THIS NOT WORK?
   userData$: Observable<any>;
+  private _showLoginError = new BehaviorSubject<LoginError>({ value: false, message: '' });
+  showLoginError$ = this._showLoginError.asObservable();
 
   constructor(
     private navigationService: NavigationService,
@@ -38,6 +45,10 @@ export class UserService {
     });
   }
 
+  setShowLoginError(value: boolean, message: string) {
+    this._showLoginError.next({ 'value': value, 'message': message });
+  }
+
   signUp(email: string, password: string) {
     if (!email || !password) {
       console.error('user service signUp() email or password is empty');
@@ -59,6 +70,10 @@ export class UserService {
       });
   }
   signIn(email: string, password: string) {
+    this._showLoginError.next({
+      value: false,
+      message: ''
+    });
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -71,6 +86,13 @@ export class UserService {
         // Failed to sign in
         console.error('user service signIn() error:', error);
         console.error('user service signIn() error message:', error.message);
+        if (error.message.includes('auth/invalid-credential')) {
+          console.log('INVALID CREDENTIALS');
+          this._showLoginError.next({
+            value: true,
+            message: 'Invalid Credentials.  Please try again.'
+          });
+        }
       });
   }
 

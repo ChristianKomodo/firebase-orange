@@ -6,6 +6,9 @@
       <div class="row">
         <form [formGroup]="authForm" (ngSubmit)="onSubmitLogin()">
           <h1>Login Form</h1>
+          <div class="error login-error">
+            Invalid credentials. Please try again.
+          </div>
           <div class="field">
             <label for="email">Email Address:</label>
             <input
