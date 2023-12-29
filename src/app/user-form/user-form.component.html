@@ -6,8 +6,8 @@
       <div class="row">
         <form [formGroup]="authForm" (ngSubmit)="onSubmitLogin()">
           <h1>Login Form</h1>
-          <div class="error login-error">
-            Invalid credentials. Please try again.
+          <div *ngIf="showLoginError.value" class="error login-error">
+            {{ showLoginError.message }}
           </div>
           <div class="field">
             <label for="email">Email Address:</label>
@@ -44,13 +44,11 @@
               A password is required
             </small>
           </div>
-          <button class="mt-1" type="submit" [disabled]="authForm.invalid">
-            Log In
-          </button>
+          <button class="mt-1" type="submit">Log In</button>
         </form>
         <div class="column already">
           <h3>Need to make an account? &nbsp; &nbsp;</h3>
-          <button class="mt-1" (click)="whichForm = 'signup'">
+          <button class="mt-1" (click)="whichForm = 'signup'; resetErrors()">
             Sign Up Instead
           </button>
         </div>
@@ -64,6 +62,9 @@
       <div class="row">
         <form [formGroup]="signupForm" (ngSubmit)="onSubmitSignup()">
           <h1>Sign Up Form</h1>
+          <div *ngIf="showLoginError.value" class="error login-error">
+            {{ showLoginError.message }}
+          </div>
           <div class="field">
             <label for="email">Email Address:</label>
             <input
@@ -100,13 +101,11 @@
               A user name is required
             </small>
           </div>
-          <button class="mt-1" type="submit" [disabled]="signupForm.invalid">
-            Sign Up
-          </button>
+          <button class="mt-1" type="submit">Sign Up</button>
         </form>
         <div class="column already">
           <h3>Already have an account?</h3>
-          <button (click)="whichForm = 'login'">Log In</button>
+          <button (click)="whichForm = 'login'; resetErrors()">Log In</button>
         </div>
       </div>
     </div>

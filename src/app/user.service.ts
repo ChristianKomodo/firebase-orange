@@ -4,12 +4,8 @@ import { BehaviorSubject } from 'rxjs';
 import { Firestore, collection, collectionData, doc, setDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
+import { LoginError } from './models/models';
 import { NavigationService } from './navigation.service';
-
-interface LoginError {
-  value: boolean;
-  message: string;
-}
 
 @Injectable({
   providedIn: 'root'
@@ -50,8 +46,13 @@ export class UserService {
   }
 
   signUp(email: string, password: string) {
+    console.log('user service signUp()');
     if (!email || !password) {
       console.error('user service signUp() email or password is empty');
+      this._showLoginError.next({
+        value: true,
+        message: 'Email or Password field is empty.  Please try again.'
+      });
       return;
     }
     const auth = getAuth();
@@ -67,6 +68,10 @@ export class UserService {
         // Failed to sign up
         console.error('user service signUp() error:', error);
         console.error('user service signUp() error message:', error.message);
+        this._showLoginError.next({
+          value: true,
+          message: error.message
+        });
       });
   }
   signIn(email: string, password: string) {

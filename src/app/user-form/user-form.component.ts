@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Auth } from '@angular/fire/auth';
 
 import { UserService } from '../user.service';
+import { LoginError } from '../models/models';
 
 @Component({
   selector: 'app-user',
@@ -16,6 +17,7 @@ export class UserFormComponent {
   whichForm = 'login';
   authForm: FormGroup;
   signupForm: FormGroup;
+  showLoginError!: LoginError;
 
   constructor(
     private fb: FormBuilder,
@@ -32,8 +34,19 @@ export class UserFormComponent {
     });
   }
 
+  ngOnInit(): void {
+    this.userService.showLoginError$.subscribe((showLoginError) => {
+      this.showLoginError = showLoginError;
+    });
+  }
+
+  resetErrors() {
+    this.userService.setShowLoginError(false, '');
+  }
+
   onSubmitLogin() {
-    if (this.authForm.valid) {
+    this.userService.setShowLoginError(true, 'Please check email and password fields and try again.');
+    if (this.authForm.touched || this.authForm.valid) {
       this.userService.signIn(
         this.authForm.value.email,
         this.authForm.value.password
@@ -42,12 +55,15 @@ export class UserFormComponent {
   }
 
   onSubmitSignup() {
-    if (this.signupForm.valid) {
+    console.log('onSubmitSignup()');
+    this.userService.setShowLoginError(true, 'Please check email and password fields and try again.');
+    if (this.signupForm.touched || this.signupForm.valid) {
       const email = this.signupForm.value.email;
       const password = this.signupForm.value.password;
       console.log(`Signing up with email ${email} and password ${password}`);
       if (!email || !password) {
         console.error('user service signUp() email or password is empty');
+        this.userService.setShowLoginError(true, 'Email or Password is empty.  Please try again.');
         return;
       }
       this.userService.signUp(email, password);

@@ -1,6 +1,4 @@
-// Sass Variables
 @import "./assets/sass/variables";
-// Imports
 @import "./assets/sass/buttons";
 
 * {
@@ -234,7 +232,6 @@ label {
     padding-top: 18px;
   }
   .star {
-    // position: absolute;
     top: 0;
     width: 30px;
     height: 30px;
@@ -242,7 +239,7 @@ label {
     opacity: 0.9;
 
     &.grey {
-      fill: #ccc;
+      fill: #777;
     }
   }
 }
