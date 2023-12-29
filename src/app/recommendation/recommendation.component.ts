@@ -78,19 +78,21 @@ export class RecommendationComponent implements OnInit {
       return;
     }
     let recommendation = {
-      title_raw: this.title.nativeElement.value,
-      text_raw: this.text.nativeElement.value,
       title: '',
       text: '',
     };
     console.log('recommendation', recommendation);
 
-    this.checkForProfanity(recommendation.title_raw).pipe(
+    this.checkForProfanity(this.title.nativeElement.value).subscribe(result => {
+      console.log('profanity result:', result);
+    });
+
+    this.checkForProfanity(this.title.nativeElement.value).pipe(
       map((result: any) => {
         recommendation.title = result.censored;
         return recommendation;
       }),
-      switchMap(() => this.checkForProfanity(recommendation.text_raw)),
+      switchMap(() => this.checkForProfanity(this.text.nativeElement.value)),
       map((result: any) => {
         recommendation.text = result.censored;
         return recommendation;
