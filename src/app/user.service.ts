@@ -54,12 +54,18 @@ export class UserService {
         console.log("user service signUp() userCredential is", userCredential);
         // Make a User account for new users
         this.addUserData(userCredential.user);
+        this.navigationService.navigateTo('user-data');
       })
       .catch((error) => {
         // Failed to sign up
         console.error('user service signUp() error:', error);
         console.error('user service signUp() error message:', error.message);
-        this.toastService.error(`${error.message}`);
+        if (error.message.includes('email-already-in-use')) {
+          console.log('EMAIL ALREADY IN USE');
+          this.toastService.error('Email already in use.  Please try again.');
+        } else {
+          this.toastService.error(`${error.message}`);
+        }
       });
   }
   signIn(email: string, password: string) {

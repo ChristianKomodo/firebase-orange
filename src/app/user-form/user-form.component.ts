@@ -35,7 +35,6 @@ export class UserFormComponent {
   }
 
   onSubmitLogin() {
-    this.toastService.error('Please check email and password fields and try again.');
     if (this.authForm.touched || this.authForm.valid) {
       this.userService.signIn(
         this.authForm.value.email,
@@ -46,7 +45,6 @@ export class UserFormComponent {
 
   onSubmitSignup() {
     console.log('onSubmitSignup()');
-    this.toastService.error('Please check email and password fields and try again.');
     if (this.signupForm.touched || this.signupForm.valid) {
       const email = this.signupForm.value.email;
       const password = this.signupForm.value.password;

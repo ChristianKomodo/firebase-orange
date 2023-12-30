@@ -185,6 +185,7 @@ export class UserDataComponent implements OnInit {
       this.reviewsForm.reset;
       this.onModalClose();
       this.modalMode = null;
+      this.toastService.success(`Added "${review.reviewTitle}" to your Reviews.`);
     }
     ).catch((error) => {
       console.error('Error adding review document: ', error);
