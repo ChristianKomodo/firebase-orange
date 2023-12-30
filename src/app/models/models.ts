@@ -38,8 +38,3 @@ export interface Review {
 	reviewText: string;
 	personalRating: number;
 }
-
-export interface LoginError {
-	value: boolean;
-	message: string;
-}
