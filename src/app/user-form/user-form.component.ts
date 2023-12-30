@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, Optional } from '@angular/core';
+import { Component, Optional, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Auth } from '@angular/fire/auth';
+import { HotToastService } from '@ngneat/hot-toast';
 
 import { UserService } from '../user.service';
-import { LoginError } from '../models/models';
 
 @Component({
   selector: 'app-user',
@@ -17,7 +17,7 @@ export class UserFormComponent {
   whichForm = 'login';
   authForm: FormGroup;
   signupForm: FormGroup;
-  showLoginError!: LoginError;
+  private toastService = inject(HotToastService);
 
   constructor(
     private fb: FormBuilder,
@@ -34,18 +34,8 @@ export class UserFormComponent {
     });
   }
 
-  ngOnInit(): void {
-    this.userService.showLoginError$.subscribe((showLoginError) => {
-      this.showLoginError = showLoginError;
-    });
-  }
-
-  resetErrors() {
-    this.userService.setShowLoginError(false, '');
-  }
-
   onSubmitLogin() {
-    this.userService.setShowLoginError(true, 'Please check email and password fields and try again.');
+    this.toastService.error('Please check email and password fields and try again.');
     if (this.authForm.touched || this.authForm.valid) {
       this.userService.signIn(
         this.authForm.value.email,
@@ -56,14 +46,14 @@ export class UserFormComponent {
 
   onSubmitSignup() {
     console.log('onSubmitSignup()');
-    this.userService.setShowLoginError(true, 'Please check email and password fields and try again.');
+    this.toastService.error('Please check email and password fields and try again.');
     if (this.signupForm.touched || this.signupForm.valid) {
       const email = this.signupForm.value.email;
       const password = this.signupForm.value.password;
       console.log(`Signing up with email ${email} and password ${password}`);
       if (!email || !password) {
         console.error('user service signUp() email or password is empty');
-        this.userService.setShowLoginError(true, 'Email or Password is empty.  Please try again.');
+        this.toastService.error('Email or Password is empty.  Please try again.');
         return;
       }
       this.userService.signUp(email, password);

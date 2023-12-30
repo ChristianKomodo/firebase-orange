@@ -1,10 +1,9 @@
 import { Injectable, inject } from '@angular/core';
 import { Auth, User, user, getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from '@angular/fire/auth';
-import { BehaviorSubject } from 'rxjs';
 import { Firestore, collection, collectionData, doc, setDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { HotToastService } from '@ngneat/hot-toast';
 
-import { LoginError } from './models/models';
 import { NavigationService } from './navigation.service';
 
 @Injectable({
@@ -15,8 +14,7 @@ export class UserService {
   user$ = user(this.auth);
   // userData$: Observable<UserData>;  // ToDo: WHY DOES THIS NOT WORK?
   userData$: Observable<any>;
-  private _showLoginError = new BehaviorSubject<LoginError>({ value: false, message: '' });
-  showLoginError$ = this._showLoginError.asObservable();
+  private toastService = inject(HotToastService);
 
   constructor(
     private navigationService: NavigationService,
@@ -41,18 +39,11 @@ export class UserService {
     });
   }
 
-  setShowLoginError(value: boolean, message: string) {
-    this._showLoginError.next({ 'value': value, 'message': message });
-  }
-
   signUp(email: string, password: string) {
     console.log('user service signUp()');
     if (!email || !password) {
       console.error('user service signUp() email or password is empty');
-      this._showLoginError.next({
-        value: true,
-        message: 'Email or Password field is empty.  Please try again.'
-      });
+      this.toastService.error('Email or Password field is empty.  Please try again.');
       return;
     }
     const auth = getAuth();
@@ -68,17 +59,10 @@ export class UserService {
         // Failed to sign up
         console.error('user service signUp() error:', error);
         console.error('user service signUp() error message:', error.message);
-        this._showLoginError.next({
-          value: true,
-          message: error.message
-        });
+        this.toastService.error(`${error.message}`);
       });
   }
   signIn(email: string, password: string) {
-    this._showLoginError.next({
-      value: false,
-      message: ''
-    });
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -93,10 +77,7 @@ export class UserService {
         console.error('user service signIn() error message:', error.message);
         if (error.message.includes('auth/invalid-credential')) {
           console.log('INVALID CREDENTIALS');
-          this._showLoginError.next({
-            value: true,
-            message: 'Invalid Credentials.  Please try again.'
-          });
+          this.toastService.error('Invalid Credentials.  Please try again.');
         }
       });
   }

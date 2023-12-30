@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Auth, UserProfile, user } from '@angular/fire/auth';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ViewChild, ElementRef } from '@angular/core';
+import { HotToastService } from '@ngneat/hot-toast';
 
 import { Movie, MovieSearchResult } from '../models/models';
 import { HomeComponent } from '../home/home.component';
@@ -26,13 +27,13 @@ export class UserDataComponent implements OnInit {
   private auth: Auth = inject(Auth);
   user$ = user(this.auth);
   uid!: string;
+  private toastService = inject(HotToastService);
   someMovies: Movie[] = [];
   movieSearchForm!: FormGroup;
   reviewsForm!: FormGroup;
   movieSearchReponse$!: Observable<MovieSearchResult>;
   movieSearchResults: Movie[] = [];
   movieDetailsResults: Movie | null = null;
-  message = '';
   modalOpen = false;
   modalMode: ('details' | 'review' | null) = null;
   movieToRemove: (string | null) = null;
@@ -113,12 +114,11 @@ export class UserDataComponent implements OnInit {
   onMovieSearchDetails(imdbID: string): void {
     this.searchMovieDetails(imdbID).subscribe({
       next: response => {
-        this.message = '';
         console.log('searchMovieDetails() response:', response);
         // handle errors
         if (response.Response === 'False') {
           console.log('Error:', response.Error);
-          this.message = `⚠️ ${response.Error}`;
+          this.toastService.error(`${response.Error}`);
           return;
         }
         // proccess results
@@ -129,7 +129,7 @@ export class UserDataComponent implements OnInit {
       },
       error: error => {
         console.error('Error occurred:', error);
-        this.message = `⚠️ ${error}`;
+        this.toastService.error(`${error}`);
       }
     });
   }
@@ -142,12 +142,11 @@ export class UserDataComponent implements OnInit {
     }
     this.searchMovie(title).subscribe({
       next: response => {
-        this.message = '';
         console.log('searchMovie() response:', response);
         // handle errors
         if (response.Response === 'False') {
           console.log('Error:', response.Error);
-          this.message = `⚠️ ${response.Error}`;
+          this.toastService.error(`${response.Error}`);
           return;
         } else {
           // success results (response.Response was "True")
@@ -159,7 +158,7 @@ export class UserDataComponent implements OnInit {
       },
       error: error => {
         console.error('Error occurred:', error);
-        this.message = `⚠️ ${error}`;
+        this.toastService.error(`${error}`);
       }
     });
   }
@@ -195,15 +194,16 @@ export class UserDataComponent implements OnInit {
   onAddMovie(movie: Movie): void {
     if (this.someMovies.find(item => item.imdbID === movie.imdbID)) {
       console.log('movie already in list');
-      this.message = `⚠️ "${movie.Title}" is already in your list`;
+      this.toastService.error(`"${movie.Title}" is already in your Watch List`);
       return;
     }
     addDoc(collection(this.firestore, 'users', this.uid, 'movies'), movie).then((docRef: DocumentReference) => {
       console.log('Document written with ID: ', docRef.id);
-      this.message = `✅ Added "${movie.Title}" to your list`;
+      this.toastService.success(`Added "${movie.Title}" to your Watch List`);
     }
     ).catch((error) => {
       console.error('Error adding movie document: ', error);
+      this.toastService.error(`${error}`);
     });
   }
 
@@ -218,7 +218,7 @@ export class UserDataComponent implements OnInit {
         setTimeout(() => {
           // this.movieSearchResults = this.movieSearchResults.filter(m => m !== movie);
           this.movieToRemove = null;
-          this.message = `✅ Removed "${movie.Title}" from your list`;
+          this.toastService.success(`Removed "${movie.Title}" from your Watch List`);
           // this.someMovies = this.someMovies.filter(item => item.id !== movie.id);
           deleteDoc(movieDoc);
         }, 500);
