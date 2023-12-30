@@ -1,3 +1,4 @@
+@use "node_modules/@ngneat/hot-toast/src/styles/styles.scss";
 @import "./assets/sass/variables";
 @import "./assets/sass/buttons";
 
@@ -10,8 +11,7 @@ body {
   margin: 0;
 }
 
-p,
-div {
+p {
   color: $primary-color;
 }
 
@@ -168,6 +168,7 @@ strong {
 
 label {
   display: block;
+  color: #ccc;
   margin-bottom: 0.5rem;
 }
 

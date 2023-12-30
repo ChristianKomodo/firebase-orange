@@ -29,6 +29,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Profanity Filter:
 https://api-ninjas.com/api/profanityfilter
+Note that this API converts the returned text to lowercase, so it's not useful for censoring. But it is useful for detecting profanity, as it will return "has_profanity": true.
 
 ## Development server
 

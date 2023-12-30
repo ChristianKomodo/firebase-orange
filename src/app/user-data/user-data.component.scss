@@ -49,11 +49,6 @@
       margin: 0.25rem 0 0 40px;
     }
   }
-
-  .message {
-    margin-left: 18px;
-    color: $accent-color;
-  }
 }
 
 .reviews-form {
@@ -206,9 +201,11 @@ $boxWidth: 100px;
   margin-bottom: 0px;
 }
 ul.ratings {
+  color: #ccc;
   margin-top: 0;
 
   li {
+    color: #ccc;
     list-style: none;
   }
 }

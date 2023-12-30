@@ -6,9 +6,6 @@
       <div class="row">
         <form [formGroup]="authForm" (ngSubmit)="onSubmitLogin()">
           <h1>Login Form</h1>
-          <div *ngIf="showLoginError.value" class="error login-error">
-            {{ showLoginError.message }}
-          </div>
           <div class="field">
             <label for="email">Email Address:</label>
             <input
@@ -48,7 +45,7 @@
         </form>
         <div class="column already">
           <h3>Need to make an account? &nbsp; &nbsp;</h3>
-          <button class="mt-1" (click)="whichForm = 'signup'; resetErrors()">
+          <button class="mt-1" (click)="whichForm = 'signup'">
             Sign Up Instead
           </button>
         </div>
@@ -62,9 +59,6 @@
       <div class="row">
         <form [formGroup]="signupForm" (ngSubmit)="onSubmitSignup()">
           <h1>Sign Up Form</h1>
-          <div *ngIf="showLoginError.value" class="error login-error">
-            {{ showLoginError.message }}
-          </div>
           <div class="field">
             <label for="email">Email Address:</label>
             <input
@@ -105,7 +99,7 @@
         </form>
         <div class="column already">
           <h3>Already have an account?</h3>
-          <button (click)="whichForm = 'login'; resetErrors()">Log In</button>
+          <button (click)="whichForm = 'login'">Log In</button>
         </div>
       </div>
     </div>
