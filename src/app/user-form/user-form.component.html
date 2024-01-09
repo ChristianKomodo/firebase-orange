@@ -1,43 +1,29 @@
 <!-- <h1>Authentication</h1> -->
 
 <div class="authentication container">
+  <p>Log In to use features like <strong class="text-primary">Watch-List</strong>, and to write <strong class="text-primary">Movie Reviews</strong> and
+    <strong class="text-primary">Recommendations</strong>.</p>
   <section class="box" *ngIf="whichForm == 'login'">
     <div class="form-container">
       <div class="row">
         <form [formGroup]="authForm" (ngSubmit)="onSubmitLogin()">
-          <h1>Login Form</h1>
+          <h1>Log In</h1>
           <div class="field">
             <label for="email">Email Address:</label>
-            <input
-              type="email"
-              id="email"
-              formControlName="email"
-              autocomplete="email"
-            />
-            <small
-              class="error"
-              *ngIf="
+            <input type="email" id="email" formControlName="email" autocomplete="email" />
+            <small class="error" *ngIf="
                 authForm.get('email')?.touched && authForm.get('email')?.invalid
-              "
-            >
+              ">
               A user name is required
             </small>
           </div>
           <div class="field">
             <label for="password">Password:</label>
-            <input
-              type="password"
-              id="password"
-              formControlName="password"
-              autocomplete="current-password"
-            />
-            <small
-              class="error"
-              *ngIf="
+            <input type="password" id="password" formControlName="password" autocomplete="current-password" />
+            <small class="error" *ngIf="
                 authForm.get('password')?.touched &&
                 authForm.get('password')?.invalid
-              "
-            >
+              ">
               A password is required
             </small>
           </div>
@@ -58,40 +44,24 @@
     <div class="form-container">
       <div class="row">
         <form [formGroup]="signupForm" (ngSubmit)="onSubmitSignup()">
-          <h1>Sign Up Form</h1>
+          <h1>Sign Up</h1>
           <div class="field">
             <label for="email">Email Address:</label>
-            <input
-              type="email"
-              id="email"
-              formControlName="email"
-              autocomplete="email"
-            />
-            <small
-              class="error"
-              *ngIf="
+            <input type="email" id="email" formControlName="email" autocomplete="email" />
+            <small class="error" *ngIf="
                 signupForm.get('email')?.touched &&
                 signupForm.get('email')?.invalid
-              "
-            >
+              ">
               A user name is required
             </small>
           </div>
           <div class="field">
             <label for="password">Password:</label>
-            <input
-              type="password"
-              id="password"
-              formControlName="password"
-              autocomplete="current-password"
-            />
-            <small
-              class="error"
-              *ngIf="
+            <input type="password" id="password" formControlName="password" autocomplete="current-password" />
+            <small class="error" *ngIf="
                 signupForm.get('password')?.touched &&
                 signupForm.get('password')?.invalid
-              "
-            >
+              ">
               A user name is required
             </small>
           </div>
