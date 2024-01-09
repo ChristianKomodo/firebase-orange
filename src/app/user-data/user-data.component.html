@@ -2,11 +2,7 @@
 <ng-container *ngIf="modalOpen && movieDetailsResults">
   <div class="modal-backdrop" (click)="onModalClose()"></div>
   <section class="modal-box">
-    <button
-      class="modal-button top-right"
-      (click)="onModalClose()"
-      role="button"
-    >
+    <button class="modal-button top-right" (click)="onModalClose()" role="button">
       Close
     </button>
 
@@ -16,76 +12,42 @@
         <span class="text-white">Review for </span>
         {{ movieDetailsResults.Title }}
       </h2>
-      <img
-        class="poster-large poster-details"
-        [src]="movieDetailsResults.Poster"
-        alt="Image of {{ movieDetailsResults.Title }} movie poster"
-      />
+      <img class="poster-large poster-details" [src]="movieDetailsResults.Poster"
+        alt="Image of {{ movieDetailsResults.Title }} movie poster" />
       <form [formGroup]="reviewsForm" class="reviews-form fade-in">
         <div class="field">
           <label for="review-title">Review Title</label>
-          <input
-            formControlName="reviewTitle"
-            id="review-title"
-            class="details-field"
-            type="text"
-            autofocus
-          />
+          <input formControlName="reviewTitle" id="review-title" class="details-field" type="text" autofocus />
         </div>
         <div class="field">
           <label for="review-text">My Review</label>
-          <textarea
-            formControlName="reviewText"
-            id="review-text"
-            class="details-field"
-            rows="4"
-            cols="50"
-          ></textarea>
+          <textarea formControlName="reviewText" id="review-text" class="details-field" rows="4" cols="50"></textarea>
         </div>
         <div class="field">
           <label for="rating">Your Rating (1-5 Stars)</label>
-          <input
-            formControlName="personalRating"
-            id="rating"
-            class="number-field"
-            type="number"
-            min="1"
-            max="5"
-            placeholder="1-5 Stars"
-          />
+          <input formControlName="personalRating" id="rating" class="number-field" type="number" min="1" max="5"
+            placeholder="1-5 Stars" />
         </div>
-        <small
-          class="error"
-          *ngIf="
+        <small class="error" *ngIf="
             reviewsForm.get('reviewTitle')?.touched &&
             reviewsForm.get('reviewTitle')?.invalid
-          "
-        >
+          ">
           Enter a review title.
         </small>
-        <small
-          class="error"
-          *ngIf="
+        <small class="error" *ngIf="
             reviewsForm.get('reviewText')?.touched &&
             reviewsForm.get('reviewText')?.invalid
-          "
-        >
+          ">
           Enter a review. Come on now.
         </small>
-        <small
-          class="error"
-          *ngIf="
+        <small class="error" *ngIf="
             reviewsForm.get('personalRating')?.touched &&
             reviewsForm.get('personalRating')?.invalid
-          "
-        >
+          ">
           Enter a rating between 1 and 5.
         </small>
-        <button
-          class="search-button"
-          (click)="onAddReview()"
-          [disabled]="this.reviewsForm.touched && this.reviewsForm.invalid"
-        >
+        <button class="search-button" (click)="onAddReview()"
+          [disabled]="this.reviewsForm.touched && this.reviewsForm.invalid">
           Save Review
         </button>
       </form>
@@ -97,11 +59,8 @@
         {{ movieDetailsResults.Title }}
         <small>{{ movieDetailsResults.Year }}</small>
       </h2>
-      <img
-        class="poster-large"
-        [src]="movieDetailsResults.Poster"
-        alt="Image of {{ movieDetailsResults.Title }} movie poster"
-      />
+      <img class="poster-large" [src]="movieDetailsResults.Poster"
+        alt="Image of {{ movieDetailsResults.Title }} movie poster" />
       <p class="accent">{{ movieDetailsResults.Genre }}</p>
       <p *ngIf="movieDetailsResults.Type == 'movie'">
         Directed by
@@ -132,11 +91,7 @@
           <span class="accent">{{ rating.Value }}</span>
         </li>
       </ul>
-      <button
-        class="modal-button"
-        (click)="onAddMovie(movieDetailsResults)"
-        role="button"
-      >
+      <button class="modal-button" (click)="onAddMovie(movieDetailsResults)" role="button">
         Add Movie to Favorites
       </button>
       <button class="modal-button" (click)="onOpenReviewModal()" role="button">
@@ -152,7 +107,7 @@
     <div class="nothing-saved">
       <p *ngIf="user$ | async">You have no movies saved to your Watch-List</p>
       <p *ngIf="!(user$ | async)">
-        Create an account to add movies to your Watch-List
+        <a [routerLink]="['/user-form']">Log in</a> to add movies to your Watch-List
       </p>
     </div>
   </ng-template>
@@ -160,22 +115,11 @@
   <!-- Scrolling watch list -->
   <div *ngIf="someMovies.length; else noFavorites" class="scrolling-watch-list">
     <div class="inside-watch-list">
-      <div
-        class="movie-container"
-        *ngFor="let movie of someMovies"
-        [class.fade-out]="movie.imdbID === movieToRemove"
-      >
+      <div class="movie-container" *ngFor="let movie of someMovies" [class.fade-out]="movie.imdbID === movieToRemove">
         <div class="movie-title">{{ movie.Title }}</div>
         <div class="movie-year">{{ movie.Year }}</div>
-        <div
-          class="movie-box"
-          [style.background-image]="'url(' + movie.Poster + ')'"
-        ></div>
-        <button
-          class="movie-button movie-details"
-          (click)="onMovieSearchDetails(movie.imdbID)"
-          role="button"
-        >
+        <div class="movie-box" [style.background-image]="'url(' + movie.Poster + ')'"></div>
+        <button class="movie-button movie-details" (click)="onMovieSearchDetails(movie.imdbID)" role="button">
           Movie Details
         </button>
         <!-- <button
@@ -185,11 +129,7 @@
     >
       Add a Review
     </button> -->
-        <button
-          class="movie-button"
-          (click)="onRemoveMovie(movie)"
-          role="button"
-        >
+        <button class="movie-button" (click)="onRemoveMovie(movie)" role="button">
           Remove
         </button>
       </div>
@@ -203,19 +143,11 @@
     <form [formGroup]="movieSearchForm" class="movie-form">
       <div class="field">
         <label for="title">Movie Title</label>
-        <input
-          id="title"
-          type="text"
-          formControlName="title"
-          placeholder="Movie or show title"
-        />
-        <small
-          class="error"
-          *ngIf="
+        <input id="title" type="text" formControlName="title" placeholder="Movie or show title" />
+        <small class="error" *ngIf="
             movieSearchForm.get('title')?.touched &&
             movieSearchForm.get('title')?.invalid
-          "
-        >
+          ">
           A Movie Title is required
         </small>
       </div>
@@ -226,21 +158,11 @@
   <h2 *ngIf="movieSearchResults.length" #searchResults>Search Results</h2>
 
   <ng-container>
-    <div
-      class="movie-container in-search"
-      *ngFor="let movie of movieSearchResults"
-    >
+    <div class="movie-container in-search" *ngFor="let movie of movieSearchResults">
       <div class="movie-title">{{ movie.Title }}</div>
       <div class="movie-year">{{ movie.Year }}</div>
-      <div
-        class="movie-box"
-        [style.background-image]="'url(' + movie.Poster + ')'"
-      ></div>
-      <button
-        class="movie-button movie-details"
-        (click)="onMovieSearchDetails(movie.imdbID)"
-        role="button"
-      >
+      <div class="movie-box" [style.background-image]="'url(' + movie.Poster + ')'"></div>
+      <button class="movie-button movie-details" (click)="onMovieSearchDetails(movie.imdbID)" role="button">
         Movie Details
       </button>
       <div *ngIf="user$ | async">

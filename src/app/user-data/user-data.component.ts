@@ -10,11 +10,12 @@ import { HotToastService } from '@ngneat/hot-toast';
 
 import { Movie, MovieSearchResult } from '../models/models';
 import { HomeComponent } from '../home/home.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-user-data',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, HttpClientModule, HomeComponent],
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule, HomeComponent, RouterModule],
   templateUrl: './user-data.component.html',
   styleUrls: ['./user-data.component.scss'],
 })
