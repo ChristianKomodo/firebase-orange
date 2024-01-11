@@ -1,21 +1,21 @@
 <nav>
-  <div class="container nav-container">
+  <div class="container nav-container" [ngClass]="{'exceeded-height': isHeightExceeded}">
     <!-- Main app name or logo -->
     <!-- <div class="title">Movie App</div> -->
 
     <!-- Normal navigation buttons -->
-    <div>
+    <!-- <div class="responsive-nav"> -->
       <!-- <button class="nav-button" (click)="navigateTo('home')">Home</button> -->
       <button class="nav-button" (click)="navigateTo('user-data')">
         Search / Watch List
       </button>
       <button class="nav-button" (click)="navigateTo('reviews')">
-        Your Movie Reviews
+        Your Reviews
       </button>
       <button class="nav-button" (click)="navigateTo('recommendations')">
         Recommendations
       </button>
-    </div>
+    <!-- </div> -->
 
     <!-- Auth actions and User details -->
     <app-user></app-user>

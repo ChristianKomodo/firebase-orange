@@ -6,8 +6,19 @@ nav {
   .nav-container {
     padding: 0;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    width: 100%;
+    outline: 1px solid orange;
+    flex-wrap: wrap;
+
+    :last-child {
+      margin-left: auto;
+    }
+
+    &.exceeded-height {
+      button {
+        width: 100%;
+      }
+    }
   }
 
   .title {
