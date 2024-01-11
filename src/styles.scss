@@ -61,6 +61,11 @@ p {
 
 a {
   color: #6fb8ff;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .accent {
