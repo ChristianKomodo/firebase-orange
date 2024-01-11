@@ -1,6 +1,20 @@
 @use "sass:math";
 @import "../../assets/sass/variables";
 
+$search-box-breakpoint: 720px;
+
+.search-box {
+  padding: 2rem;
+
+  h1 {
+    margin: 0 0 8px;
+  }
+}
+
+.search-button, input {
+  margin: 8px;
+}
+
 .nothing-saved {
   margin: -18px 0 32px;
 }
@@ -17,18 +31,18 @@
 }
 
 .search-container {
-  display: flex;
-  align-items: center;
-
+  text-align: center;
+  
   .movie-form {
-    display: flex;
     align-items: center;
 
     .field {
       margin: 0;
+      display: inline-block;
     }
 
     label {
+      // Elaborate way to hide the label except for screen readers
       position: absolute;
       clip: rect(1px 1px 1px 1px);
       border: 0;
@@ -38,20 +52,46 @@
     }
 
     input {
-      margin: 0 14px 0 38px;
       font-size: 16px;
       padding: 4px 12px;
     }
-
+    
     .error {
       position: absolute;
-      margin: 0.25rem 0 0 40px;
+      margin: 4px 0 0 40px;
+    }
+  }
+
+  // Medium and up
+  @media (min-width: $search-box-breakpoint) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .movie-form {
+        display: flex;
+    }
+
+    h1 {
+      margin: 0px 28px 0 0;
     }
   }
 }
 
+  // Small and down
+  @media (max-width: 420px) {
+    .search-box {
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+
+    .movie-form input {
+      width: -moz-available;
+    }
+}
+
 .reviews-form {
-  // uses .fade-in @Keyframe animation and animates opacity up
+  // uses .fade-in @Keyframe animation and animates opacity up, so it starts with opacity 0
   opacity: 0;
 }
 
@@ -90,7 +130,7 @@
   max-width: 160px;
 }
 
-// More Sass variables
+// Sass variables for the 3D movie box
 $rectangleHeight: 201px;
 $rectangleWidth: 140px;
 $rectangleDepth: 34px;
@@ -183,11 +223,13 @@ $boxWidth: 100px;
     width: 200px;
   }
 }
+
 // animate from 300px to 200px
 @keyframes poster-details {
   from {
     width: 300px;
   }
+
   to {
     width: 200px;
   }
@@ -196,9 +238,11 @@ $boxWidth: 100px;
 .plot {
   font-size: 22px;
 }
+
 .ratings-heading {
   margin-bottom: 0px;
 }
+
 ul.ratings {
   color: #ccc;
   margin-top: 0;
