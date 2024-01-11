@@ -7,17 +7,15 @@ nav {
     padding: 0;
     display: flex;
     width: 100%;
-    outline: 1px solid orange;
     flex-wrap: wrap;
 
     :last-child {
       margin-left: auto;
     }
 
-    &.exceeded-height {
-      button {
+    // Responsive nav height for use with checkNavContainerHeight()
+    &.exceeded-height * {
         width: 100%;
-      }
     }
   }
 

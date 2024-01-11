@@ -81,11 +81,6 @@ section.box {
   margin-bottom: 2rem;
 }
 
-.exceeded-height {
-  border: 1px solid red;
-  background: orangered;
-}
-
 strong {
   // lighten the color of the text
   color: lighten($primary-color, 20%);
