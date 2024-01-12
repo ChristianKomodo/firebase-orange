@@ -11,7 +11,8 @@ $search-box-breakpoint: 720px;
   }
 }
 
-.search-button, input {
+.search-button,
+input {
   margin: 8px;
 }
 
@@ -22,7 +23,7 @@ $search-box-breakpoint: 720px;
 .scrolling-watch-list {
   box-sizing: border-box;
   overflow-x: scroll;
-  margin-top: -18px;
+  margin: -16px 0 16px;
 
   .inside-watch-list {
     display: flex;
@@ -32,7 +33,7 @@ $search-box-breakpoint: 720px;
 
 .search-container {
   text-align: center;
-  
+
   .movie-form {
     align-items: center;
 
@@ -55,7 +56,7 @@ $search-box-breakpoint: 720px;
       font-size: 16px;
       padding: 4px 12px;
     }
-    
+
     .error {
       position: absolute;
       margin: 4px 0 0 40px;
@@ -69,7 +70,7 @@ $search-box-breakpoint: 720px;
     justify-content: center;
 
     .movie-form {
-        display: flex;
+      display: flex;
     }
 
     h1 {
@@ -78,16 +79,16 @@ $search-box-breakpoint: 720px;
   }
 }
 
-  // Small and down
-  @media (max-width: 420px) {
-    .search-box {
-      padding-left: 8px;
-      padding-right: 8px;
-    }
+// Small and down
+@media (max-width: 420px) {
+  .search-box {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
 
-    .movie-form input {
-      width: -moz-available;
-    }
+  .movie-form input {
+    width: -moz-available;
+  }
 }
 
 .reviews-form {
