@@ -204,20 +204,31 @@ $boxWidth: 100px;
   backdrop-filter: blur(5px);
   border: 5px solid #555;
 
+  .modal-button {
+    margin-bottom: 16px;
+  }
+
   @media (min-width: 768px) {
-    top: 50%;
+    top: 30px;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
     width: calc(100% - 80px);
-    height: calc(100% - 80px);
   }
 }
 
 // Details
 .poster-large {
   float: left;
-  margin-right: 18px;
+  margin: 0 18px 18px 0;
 
+  @media (max-width: 700px) {
+    width: 200px;
+  }
+  @media (max-width: 500px) {
+    width: 100%;
+    float: none;
+  }
+  
   &.poster-details {
     animation: poster-details 0.5s ease-in-out;
     width: 200px;
