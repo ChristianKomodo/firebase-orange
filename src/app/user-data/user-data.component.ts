@@ -127,6 +127,7 @@ export class UserDataComponent implements OnInit {
         console.log('movieDetailsResults HERE:', this.movieDetailsResults);
         this.modalMode = 'details';
         this.modalOpen = true;
+        window.scrollTo(0, 0);
       },
       error: error => {
         console.error('Error occurred:', error);

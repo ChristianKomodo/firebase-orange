@@ -84,7 +84,12 @@ button.modal-button {
 
   &.top-right {
     position: absolute;
-    top: 22px;
-    right: 22px;
+    top: 16px;
+    right: 16px;
+    padding: 4px 8px 6px;
+    background: #555;
+    border: 1px solid #666;
+    font-weight: bold;
+    color: #aaa;
   }
 }
