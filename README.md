@@ -1,4 +1,4 @@
-# FirebaseOrange
+# MovieCollection.app (codename: FirebaseOrange)
 
 ### Anglar 16, Firebase Cloud Firestore, AngularFire v16
 
